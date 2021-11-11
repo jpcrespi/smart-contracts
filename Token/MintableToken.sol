@@ -4,9 +4,9 @@
 pragma solidity >=0.6.0 <0.9.0;
 
 import "../Common/SafeMath.sol";
-import "../Standard/Token.sol";
+import "../Standard/StandardToken.sol";
 
-contract Mintable is StandardToken {
+contract MintableToken is StandardToken {
     using SafeMath for uint256;
 
     event Mint(address _minter, address indexed _to, uint256 _value);
@@ -40,6 +40,11 @@ contract Mintable is StandardToken {
 
     function burn(address _from, uint256 _value) public {
         _burn(_msgSender(), _from, _value);
+    }
+
+    function burnFrom(address _from, uint256 _value) internal {
+        _burn(_msgSender(), _from, _value);
+        _approve(_from, _msgSender(), _allowed[_from][_msgSender()].sub(_value));
     }
     
     function _mint(address _sender, address _to, uint256 _value) internal whenNotPaused onlyMinter notBlacklisted(_sender) notBlacklisted(_to) {

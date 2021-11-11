@@ -23,7 +23,7 @@ interface IERC20 {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
-interface IBEP20 {
+interface IBEP20 is IERC20 {
     function getOwner() external view returns (address);
 }
 
@@ -68,6 +68,16 @@ contract StandardToken is IERC20, IBEP20, Pausable, Blacklistable, Taxable {
 
     function approve(address _spender, uint256 _value) override virtual public returns (bool success) {
         _approve(_msgSender(), _spender, _value);
+        return true;
+    }
+
+    function increaseAllowance(address _spender, uint256 _value) public returns (bool success) {
+        _approve(_msgSender(), _spender, _allowed[_msgSender()][_spender].add(_value));
+        return true;
+    }
+
+    function decreaseAllowance(address _spender, uint256 _value) public returns (bool success) {
+        _approve(_msgSender(), _spender, _allowed[_msgSender()][_spender].sub(_value));
         return true;
     }
 

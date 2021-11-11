@@ -3,17 +3,22 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../Standard/Token.sol";
-import "./Mintable.sol";
+import "./MintableToken.sol";
 import "./Upgradeable.sol";
 
-contract Token is StandardToken, Mintable, Upgradeable {
+interface IERC20Legacy {
+    function legacyTransfer(address _sender, address _to, uint256 _value) external returns (bool success);
+    function legacyTransferFrom(address _sender, address _from, address _to, uint256 _value) external returns (bool success);
+    function legacyApprove(address _sender, address _spender, uint256 _value) external returns (bool success);
+}
+
+contract UpgradeableToken is MintableToken, Upgradeable, IERC20Legacy {
 
     function name() override public view returns (string memory) {
         if (upgraded()) {
             return IERC20(upgradedContract()).name();
         } else {
-            return super.name();
+            return StandardToken.name();
         }
     }
 
@@ -21,7 +26,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20(upgradedContract()).symbol();
         } else { 
-            return super.symbol();
+            return StandardToken.symbol();
         }
     }
 
@@ -29,7 +34,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20(upgradedContract()).decimals();
         } else {
-            return super.decimals();
+            return StandardToken.decimals();
         }
     }
 
@@ -37,7 +42,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20(upgradedContract()).totalSupply();
         } else {
-            return super.totalSupply();
+            return StandardToken.totalSupply();
         }
     }
 
@@ -45,7 +50,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20(upgradedContract()).balanceOf(_owner);
         } else {
-            return super.balanceOf(_owner);
+            return StandardToken.balanceOf(_owner);
         }
     }
 
@@ -53,7 +58,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20(upgradedContract()).allowance(_owner, _spender);
         } else {
-            return super.allowance(_owner, _spender);
+            return StandardToken.allowance(_owner, _spender);
         }
     }
 
@@ -61,7 +66,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20Legacy(upgradedContract()).legacyTransfer(_msgSender(), _to, _value);
         } else {
-            return super.transfer(_to, _value);
+            return StandardToken.transfer(_to, _value);
         }
     }
 
@@ -69,7 +74,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20Legacy(upgradedContract()).legacyApprove(_msgSender(), _spender, _value);
         } else {
-            return super.approve(_spender, _value);
+            return StandardToken.approve(_spender, _value);
         }
     }
 
@@ -77,7 +82,7 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IERC20Legacy(upgradedContract()).legacyTransferFrom(_msgSender(), _from, _to, _value);
         } else {
-            return super.transferFrom(_from, _to, _value);
+            return StandardToken.transferFrom(_from, _to, _value);
         }
     }
 
@@ -85,7 +90,22 @@ contract Token is StandardToken, Mintable, Upgradeable {
         if (upgraded()) {
             return IBEP20(upgradedContract()).getOwner();
         } else {
-            return super.getOwner();
+            return StandardToken.getOwner();
         }
+    }
+
+    function legacyTransfer(address _sender, address _to, uint256 _value) override public onlyLegacy returns (bool success) {
+        _transfer(_sender, _to, _value);
+        return true;
+    }
+
+    function legacyApprove(address _sender, address _spender, uint256 _value) override public onlyLegacy returns (bool success) {
+        _approve(_sender, _spender, _value);
+        return true;
+    }
+    
+    function legacyTransferFrom(address _sender, address _from, address _to, uint256 _value) override public onlyLegacy returns (bool success) {
+        _transferFrom(_sender, _from, _to, _value);
+        return true;
     }
 }

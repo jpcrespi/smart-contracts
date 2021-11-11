@@ -3,15 +3,9 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../Standard/Token.sol";
+import "../Common/Ownable.sol";
 
-interface IERC20Legacy {
-    function legacyTransfer(address _sender, address _to, uint256 _value) external returns (bool success);
-    function legacyTransferFrom(address _sender, address _from, address _to, uint256 _value) external returns (bool success);
-    function legacyApprove(address _sender, address _spender, uint256 _value) external returns (bool success);
-}
-
-contract Upgradeable is StandardToken, IERC20Legacy {
+contract Upgradeable is Ownable {
 
     event Upgraded(address indexed _newContract);
     event Legacy(address indexed _oldContract);
@@ -56,7 +50,7 @@ contract Upgradeable is StandardToken, IERC20Legacy {
         return _legacyContract;
     }
     
-    function upgradedContract(address _newContract) public onlyUpgrader {
+    function upgradeContract(address _newContract) public onlyUpgrader {
         _upgraded = true;
         _upgradedContract = _newContract;
         emit Upgraded(_newContract);
@@ -68,20 +62,5 @@ contract Upgradeable is StandardToken, IERC20Legacy {
     
     function upgraded() public view returns (bool) {
         return _upgraded;
-    }
-
-    function legacyTransfer(address _sender, address _to, uint256 _value) override public onlyLegacy returns (bool success) {
-        _transfer(_sender, _to, _value);
-        return true;
-    }
-
-    function legacyApprove(address _sender, address _spender, uint256 _value) override public onlyLegacy returns (bool success) {
-        _approve(_sender, _spender, _value);
-        return true;
-    }
-    
-    function legacyTransferFrom(address _sender, address _from, address _to, uint256 _value) override public onlyLegacy returns (bool success) {
-        _transferFrom(_sender, _from, _to, _value);
-        return true;
     }
 }

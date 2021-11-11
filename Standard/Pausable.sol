@@ -23,6 +23,11 @@ contract Pausable is Ownable {
         _;
     }
 
+    modifier whenPaused {
+        require(_paused == true, "Pausable: not paused") ;
+        _;
+    }
+
     modifier onlyPauser() {
         require(_msgSender() == _pauser, "Pausable: caller is not the pauser");
         _;
@@ -42,13 +47,15 @@ contract Pausable is Ownable {
         emit PauserChanged(_account);
     }
 
-    function pause() public onlyPauser {
+    function pause() public onlyPauser whenNotPaused returns (bool success) {
         _paused = true;
         emit Pause();
+        return true;
     }
 
-    function unpause() public onlyPauser {
+    function unpause() public onlyPauser whenPaused returns (bool success) {
         _paused = false;
         emit Unpause();
+        return true;
     }
 }
