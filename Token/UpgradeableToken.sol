@@ -86,6 +86,22 @@ contract UpgradeableToken is MintableToken, Upgradeable, IERC20Legacy {
         }
     }
 
+    function increaseAllowance(address _spender, uint256 _value) override public returns (bool success) {
+        if (upgraded()) {
+            return IERC20(upgradedContract()).increaseAllowance(_spender, _value);
+        } else {
+            return StandardToken.increaseAllowance(_spender, _value);
+        }
+    }
+
+    function decreaseAllowance(address _spender, uint256 _value) override public returns (bool success) {
+        if (upgraded()) {
+            return IERC20(upgradedContract()).decreaseAllowance(_spender, _value);
+        } else {
+            return StandardToken.decreaseAllowance(_spender, _value);
+        }
+    }
+
     function getOwner() override public view returns (address) {
         if (upgraded()) {
             return IBEP20(upgradedContract()).getOwner();

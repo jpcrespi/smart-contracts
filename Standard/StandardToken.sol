@@ -19,6 +19,8 @@ interface IERC20 {
     function transferFrom(address _from, address _to, uint256 _value) external returns (bool success);
     function approve(address _spender, uint256 _value) external returns (bool success);
     function allowance(address _owner, address _spender) external view returns (uint256 remaining);
+    function increaseAllowance(address _spender, uint256 _value) external returns (bool success);
+    function decreaseAllowance(address _spender, uint256 _value) external returns (bool success);
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
@@ -71,12 +73,12 @@ contract StandardToken is IERC20, IBEP20, Pausable, Blacklistable, Taxable {
         return true;
     }
 
-    function increaseAllowance(address _spender, uint256 _value) public returns (bool success) {
+    function increaseAllowance(address _spender, uint256 _value) override public returns (bool success) {
         _approve(_msgSender(), _spender, _allowed[_msgSender()][_spender].add(_value));
         return true;
     }
 
-    function decreaseAllowance(address _spender, uint256 _value) public returns (bool success) {
+    function decreaseAllowance(address _spender, uint256 _value) override public returns (bool success) {
         _approve(_msgSender(), _spender, _allowed[_msgSender()][_spender].sub(_value));
         return true;
     }
