@@ -1,0 +1,9 @@
+{
+    "python.formatting.provider": "black",
+    "solidity.compileUsingRemoteVersion": "v0.8.7+commit.e28d00a7",
+    "solidity.defaultCompiler": "localNodeModule",
+    "solidity.remappings": [
+        "@chainlink/=/Users/juanpablo/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@1.2.0",
+        "@openzeppelin/=/Users/juanpablo/.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.3.3"
+    ]
+}

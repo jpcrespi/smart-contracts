@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
-// Author: Juan Pablo Crespi 
+// Author: Juan Pablo Crespi
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../Common/SafeMath.sol";
-import "../Common/Ownable.sol";
+import "../common/safe_math.sol";
+import "../common/ownable.sol";
 
 contract Blacklistable is Ownable {
     using SafeMath for uint256;
@@ -21,12 +21,18 @@ contract Blacklistable is Ownable {
     }
 
     modifier onlyBlacklister() {
-        require(_msgSender() == _blacklister, "Blacklistable: caller is not the blacklister");
+        require(
+            _msgSender() == _blacklister,
+            "Blacklistable: caller is not the blacklister"
+        );
         _;
     }
 
     modifier notBlacklisted(address _account) {
-        require(_blacklisted[_account] == false, "Blacklistable: account is blacklisted");
+        require(
+            _blacklisted[_account] == false,
+            "Blacklistable: account is blacklisted"
+        );
         _;
     }
 
@@ -35,7 +41,10 @@ contract Blacklistable is Ownable {
     }
 
     function updateBlacklister(address _account) public onlyOwner {
-        require(_account != address(0), "Blacklistable: new blacklister is the zero address");
+        require(
+            _account != address(0),
+            "Blacklistable: new blacklister is the zero address"
+        );
         _blacklister = _account;
         emit BlacklisterChanged(_account);
     }

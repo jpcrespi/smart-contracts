@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0
-// Author: Juan Pablo Crespi 
+// Author: Juan Pablo Crespi
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../Common/Ownable.sol";
+import "../common/ownable.sol";
 
 contract Pausable is Ownable {
-
     event Pause();
     event Unpause();
     event PauserChanged(address indexed _account);
@@ -23,8 +22,8 @@ contract Pausable is Ownable {
         _;
     }
 
-    modifier whenPaused {
-        require(_paused == true, "Pausable: not paused") ;
+    modifier whenPaused() {
+        require(_paused == true, "Pausable: not paused");
         _;
     }
 
@@ -36,13 +35,16 @@ contract Pausable is Ownable {
     function paused() public view returns (bool) {
         return _paused == true;
     }
-    
+
     function pauser() public view returns (address) {
         return _pauser;
     }
 
     function updatePauser(address _account) public onlyOwner {
-        require(_account != address(0), "Pausable: new pauser is the zero address");
+        require(
+            _account != address(0),
+            "Pausable: new pauser is the zero address"
+        );
         _pauser = _account;
         emit PauserChanged(_account);
     }

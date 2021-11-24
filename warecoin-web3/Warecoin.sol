@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0
-// Author: Juan Pablo Crespi 
+// Author: Juan Pablo Crespi
 
 pragma solidity >=0.6.0 <0.9.0;
 
 library SafeMath {
-
-    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+    function tryAdd(uint256 a, uint256 b)
+        internal
+        pure
+        returns (bool, uint256)
+    {
         unchecked {
             uint256 c = a + b;
             if (c < a) return (false, 0);
@@ -13,14 +16,22 @@ library SafeMath {
         }
     }
 
-    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+    function trySub(uint256 a, uint256 b)
+        internal
+        pure
+        returns (bool, uint256)
+    {
         unchecked {
             if (b > a) return (false, 0);
             return (true, a - b);
         }
     }
 
-    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+    function tryMul(uint256 a, uint256 b)
+        internal
+        pure
+        returns (bool, uint256)
+    {
         unchecked {
             if (a == 0) return (true, 0);
             uint256 c = a * b;
@@ -29,14 +40,22 @@ library SafeMath {
         }
     }
 
-    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+    function tryDiv(uint256 a, uint256 b)
+        internal
+        pure
+        returns (bool, uint256)
+    {
         unchecked {
             if (b == 0) return (false, 0);
             return (true, a / b);
         }
     }
 
-    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+    function tryMod(uint256 a, uint256 b)
+        internal
+        pure
+        returns (bool, uint256)
+    {
         unchecked {
             if (b == 0) return (false, 0);
             return (true, a % b);
@@ -63,7 +82,11 @@ library SafeMath {
         return mod(a, b, "SafeMath: modulo by zero");
     }
 
-    function add(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function add(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         unchecked {
             uint256 c = a + b;
             require(c >= a, errorMessage);
@@ -71,14 +94,22 @@ library SafeMath {
         }
     }
 
-    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function sub(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         unchecked {
             require(b <= a, errorMessage);
             return a - b;
         }
     }
 
-    function mul(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function mul(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         unchecked {
             uint256 c = a * b;
             require(c / a == b, errorMessage);
@@ -86,14 +117,22 @@ library SafeMath {
         }
     }
 
-    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function div(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         unchecked {
             require(b > 0, errorMessage);
             return a / b;
         }
     }
 
-    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function mod(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         unchecked {
             require(b > 0, errorMessage);
             return a % b;
@@ -103,18 +142,48 @@ library SafeMath {
 
 interface IERC20 {
     function name() external view returns (string memory);
+
     function symbol() external view returns (string memory);
+
     function decimals() external view returns (uint8);
+
     function totalSupply() external view returns (uint256);
+
     function balanceOf(address _owner) external view returns (uint256 balance);
-    function transfer(address _to, uint256 _value) external returns (bool success);
-    function transferFrom(address _from, address _to, uint256 _value) external returns (bool success);
-    function approve(address _spender, uint256 _value) external returns (bool success);
-    function allowance(address _owner, address _spender) external view returns (uint256 remaining);
-    function increaseAllowance(address _spender, uint256 _value) external returns (bool success);
-    function decreaseAllowance(address _spender, uint256 _value) external returns (bool success);
+
+    function transfer(address _to, uint256 _value)
+        external
+        returns (bool success);
+
+    function transferFrom(
+        address _from,
+        address _to,
+        uint256 _value
+    ) external returns (bool success);
+
+    function approve(address _spender, uint256 _value)
+        external
+        returns (bool success);
+
+    function allowance(address _owner, address _spender)
+        external
+        view
+        returns (uint256 remaining);
+
+    function increaseAllowance(address _spender, uint256 _value)
+        external
+        returns (bool success);
+
+    function decreaseAllowance(address _spender, uint256 _value)
+        external
+        returns (bool success);
+
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+    event Approval(
+        address indexed _owner,
+        address indexed _spender,
+        uint256 _value
+    );
 }
 
 interface IBEP20 is IERC20 {
@@ -122,15 +191,33 @@ interface IBEP20 is IERC20 {
 }
 
 interface IERC20Legacy {
-    function legacyTransfer(address _sender, address _to, uint256 _value) external returns (bool success);
-    function legacyTransferFrom(address _sender, address _from, address _to, uint256 _value) external returns (bool success);
-    function legacyApprove(address _sender, address _spender, uint256 _value) external returns (bool success);
+    function legacyTransfer(
+        address _sender,
+        address _to,
+        uint256 _value
+    ) external returns (bool success);
+
+    function legacyTransferFrom(
+        address _sender,
+        address _from,
+        address _to,
+        uint256 _value
+    ) external returns (bool success);
+
+    function legacyApprove(
+        address _sender,
+        address _spender,
+        uint256 _value
+    ) external returns (bool success);
 }
 
-contract Warecash is IERC20, IBEP20, IERC20Legacy {
+contract Warecoin is IERC20, IBEP20, IERC20Legacy {
     using SafeMath for uint256;
 
-    event OwnershipTransferred(address indexed _previousOwner, address indexed _newOwner);
+    event OwnershipTransferred(
+        address indexed _previousOwner,
+        address indexed _newOwner
+    );
     event Params(uint256 _feeRate, uint256 _maximumFee);
     event TaxerChanged(address indexed _account);
     event Blacklisted(address indexed _account);
@@ -165,7 +252,7 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     address private _legacyContract;
     address private _upgradedContract;
     bool private _upgraded;
-    
+
     constructor() {
         _owner = _msgSender();
         _taxer = _msgSender();
@@ -173,7 +260,7 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         _pauser = _msgSender();
         _minter = _msgSender();
         _upgrader = _msgSender();
-        _name = "Warecash";
+        _name = "Warecoin";
         _symbol = "WC";
         _decimals = 8;
     }
@@ -199,7 +286,10 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     }
 
     function transferOwnership(address _newOwner) public onlyOwner {
-        require(_newOwner != address(0), "Ownable: new owner is the zero address");
+        require(
+            _newOwner != address(0),
+            "Ownable: new owner is the zero address"
+        );
         emit OwnershipTransferred(_owner, _newOwner);
         _owner = _newOwner;
     }
@@ -210,28 +300,39 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     }
 
     function updateTaxer(address _account) public onlyOwner {
-        require(_account != address(0), "Taxable: new feer is the zero address");
+        require(
+            _account != address(0),
+            "Taxable: new feer is the zero address"
+        );
         _taxer = _account;
         emit TaxerChanged(_account);
     }
-    
-    function setParams(uint256 _newFeeRate, uint256 _newMaximumFee, uint256 _newDecimals) public onlyOwner {
+
+    function setParams(
+        uint256 _newFeeRate,
+        uint256 _newMaximumFee,
+        uint256 _newDecimals
+    ) public onlyOwner {
         require(_newFeeRate < 20);
         require(_newMaximumFee < 50);
         _feeRate = _newFeeRate;
         _maximumFee = _newMaximumFee.mul(10**_newDecimals);
         emit Params(_feeRate, _maximumFee);
     }
-    
+
     function feeRate() public view returns (uint256) {
         return _feeRate;
     }
-    
+
     function maximumFee() public view returns (uint256) {
         return _maximumFee;
     }
-    
-    function _calculateFee(address _sender, uint256 _value) internal view returns (uint256) {
+
+    function _calculateFee(address _sender, uint256 _value)
+        internal
+        view
+        returns (uint256)
+    {
         if (_sender == _taxer) {
             return 0;
         }
@@ -244,12 +345,18 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
 
     // Blacklistable
     modifier onlyBlacklister() {
-        require(_msgSender() == _blacklister, "Blacklistable: caller is not the blacklister");
+        require(
+            _msgSender() == _blacklister,
+            "Blacklistable: caller is not the blacklister"
+        );
         _;
     }
 
     modifier notBlacklisted(address _account) {
-        require(_blacklisted[_account] == false, "Blacklistable: account is blacklisted");
+        require(
+            _blacklisted[_account] == false,
+            "Blacklistable: account is blacklisted"
+        );
         _;
     }
 
@@ -258,7 +365,10 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     }
 
     function updateBlacklister(address _account) public onlyOwner {
-        require(_account != address(0), "Blacklistable: new blacklister is the zero address");
+        require(
+            _account != address(0),
+            "Blacklistable: new blacklister is the zero address"
+        );
         _blacklister = _account;
         emit BlacklisterChanged(_account);
     }
@@ -283,8 +393,8 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         _;
     }
 
-    modifier whenPaused {
-        require(_paused == true, "Pausable: not paused") ;
+    modifier whenPaused() {
+        require(_paused == true, "Pausable: not paused");
         _;
     }
 
@@ -296,13 +406,16 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     function paused() public view returns (bool) {
         return _paused == true;
     }
-    
+
     function pauser() public view returns (address) {
         return _pauser;
     }
 
     function updatePauser(address _account) public onlyOwner {
-        require(_account != address(0), "Pausable: new pauser is the zero address");
+        require(
+            _account != address(0),
+            "Pausable: new pauser is the zero address"
+        );
         _pauser = _account;
         emit PauserChanged(_account);
     }
@@ -320,10 +433,17 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     }
 
     // ERC20
-    function _transfer(address _sender, address _to, uint256 _value) internal whenNotPaused notBlacklisted(_sender) notBlacklisted(_to)  {
+    function _transfer(
+        address _sender,
+        address _to,
+        uint256 _value
+    ) internal whenNotPaused notBlacklisted(_sender) notBlacklisted(_to) {
         require(_sender != address(0), "ERC20: transfer from the zero address");
         require(_to != address(0), "ERC20: transfer to the zero address");
-        require(_value <= _balances[_sender],"ERC20: transfer amount exceeds balance");
+        require(
+            _value <= _balances[_sender],
+            "ERC20: transfer amount exceeds balance"
+        );
         uint256 _fee = _calculateFee(_sender, _value);
         if (_fee > 0) {
             address _account = taxer();
@@ -334,16 +454,34 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         _balances[_to] = _balances[_to].add(_value.sub(_fee));
         emit Transfer(_sender, _to, _value);
     }
-    
-    function _approve(address _sender, address _spender, uint256 _value) internal whenNotPaused notBlacklisted(_sender) notBlacklisted(_spender) {
+
+    function _approve(
+        address _sender,
+        address _spender,
+        uint256 _value
+    ) internal whenNotPaused notBlacklisted(_sender) notBlacklisted(_spender) {
         require(_sender != address(0), "ERC20: approve from the zero address");
         require(_spender != address(0), "ERC20: approve to the zero address");
         _allowed[_sender][_spender] = _value;
         emit Approval(_sender, _spender, _value);
     }
-    
-    function _transferFrom(address _sender, address _from, address _to, uint256 _value) internal whenNotPaused notBlacklisted(_sender) notBlacklisted(_from) notBlacklisted(_to) {
-        require(_value <= _allowed[_from][_sender], "ERC20: transfer amount exceeds allowance");
+
+    function _transferFrom(
+        address _sender,
+        address _from,
+        address _to,
+        uint256 _value
+    )
+        internal
+        whenNotPaused
+        notBlacklisted(_sender)
+        notBlacklisted(_from)
+        notBlacklisted(_to)
+    {
+        require(
+            _value <= _allowed[_from][_sender],
+            "ERC20: transfer amount exceeds allowance"
+        );
         _transfer(_from, _to, _value);
         _allowed[_from][_sender] = _allowed[_from][_sender].sub(_value);
     }
@@ -359,7 +497,10 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     }
 
     function updateMinter(address _account) public onlyOwner {
-        require(_account != address(0), "Mintable: new miner is the zero address" );
+        require(
+            _account != address(0),
+            "Mintable: new miner is the zero address"
+        );
         _minter = _account;
         emit MinterChanged(_account);
     }
@@ -374,10 +515,24 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
 
     function burnFrom(address _from, uint256 _value) internal {
         _burn(_msgSender(), _from, _value);
-        _approve(_from, _msgSender(), _allowed[_from][_msgSender()].sub(_value));
+        _approve(
+            _from,
+            _msgSender(),
+            _allowed[_from][_msgSender()].sub(_value)
+        );
     }
-    
-    function _mint(address _sender, address _to, uint256 _value) internal whenNotPaused onlyMinter notBlacklisted(_sender) notBlacklisted(_to) {
+
+    function _mint(
+        address _sender,
+        address _to,
+        uint256 _value
+    )
+        internal
+        whenNotPaused
+        onlyMinter
+        notBlacklisted(_sender)
+        notBlacklisted(_to)
+    {
         require(_to != address(0), "Mintable: mint to the zero address");
         require(_value > 0, "Mintable: mint amount not greater than 0");
         _totalSupply = _totalSupply.add(_value);
@@ -385,8 +540,12 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         emit Mint(_sender, _to, _value);
         emit Transfer(address(0), _to, _value);
     }
-    
-    function _burn(address _sender, address _from, uint256 _value) internal whenNotPaused onlyMinter notBlacklisted(_sender) {
+
+    function _burn(
+        address _sender,
+        address _from,
+        uint256 _value
+    ) internal whenNotPaused onlyMinter notBlacklisted(_sender) {
         require(_from != address(0), "Mintable: burn to the zero address");
         uint256 _balance = _balances[_from];
         require(_value > 0, "Mintable: burn amount not greater than 0");
@@ -399,13 +558,22 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
 
     // Upgradeable
     modifier onlyUpgrader() {
-        require(_msgSender() == _upgrader, "Upgradeable: caller is not the upgrader");
+        require(
+            _msgSender() == _upgrader,
+            "Upgradeable: caller is not the upgrader"
+        );
         _;
     }
 
     modifier onlyLegacy() {
-        require(_msgSender() != address(0), "Upgradeable: caller is the zero address");
-        require(_msgSender() == _legacyContract, "Upgradeable: caller is not the legacy contract");
+        require(
+            _msgSender() != address(0),
+            "Upgradeable: caller is the zero address"
+        );
+        require(
+            _msgSender() == _legacyContract,
+            "Upgradeable: caller is not the legacy contract"
+        );
         _;
     }
 
@@ -414,7 +582,10 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     }
 
     function updateUpgrader(address _account) public onlyOwner {
-        require(_account != address(0), "Upgradeable: new upgrader is the zero address");
+        require(
+            _account != address(0),
+            "Upgradeable: new upgrader is the zero address"
+        );
         _upgrader = _account;
         emit UpgraderChanged(_account);
     }
@@ -427,22 +598,22 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
     function legacyContract() public view returns (address) {
         return _legacyContract;
     }
-    
+
     function upgradeContract(address _newContract) public onlyUpgrader {
         _upgraded = true;
         _upgradedContract = _newContract;
         emit Upgraded(_newContract);
     }
-    
+
     function upgradedContract() public view returns (address) {
         return _upgradedContract;
     }
-    
+
     function upgraded() public view returns (bool) {
         return _upgraded;
     }
 
-    function name() override public view returns (string memory) {
+    function name() public view override returns (string memory) {
         if (upgraded()) {
             return IERC20(upgradedContract()).name();
         } else {
@@ -450,15 +621,15 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         }
     }
 
-    function symbol() override public view returns (string memory) {
+    function symbol() public view override returns (string memory) {
         if (upgraded()) {
             return IERC20(upgradedContract()).symbol();
-        } else { 
+        } else {
             return _symbol;
         }
     }
 
-    function decimals() override public view returns (uint8) {
+    function decimals() public view override returns (uint8) {
         if (upgraded()) {
             return IERC20(upgradedContract()).decimals();
         } else {
@@ -466,7 +637,7 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         }
     }
 
-    function totalSupply() override public view returns (uint256) {
+    function totalSupply() public view override returns (uint256) {
         if (upgraded()) {
             return IERC20(upgradedContract()).totalSupply();
         } else {
@@ -474,7 +645,12 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         }
     }
 
-    function balanceOf(address _from) override public view returns (uint256 balance) {
+    function balanceOf(address _from)
+        public
+        view
+        override
+        returns (uint256 balance)
+    {
         if (upgraded()) {
             return IERC20(upgradedContract()).balanceOf(_owner);
         } else {
@@ -482,7 +658,12 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         }
     }
 
-    function allowance(address _from, address _spender) override public view returns (uint256 remaining) {
+    function allowance(address _from, address _spender)
+        public
+        view
+        override
+        returns (uint256 remaining)
+    {
         if (upgraded()) {
             return IERC20(upgradedContract()).allowance(_from, _spender);
         } else {
@@ -490,54 +671,100 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         }
     }
 
-    function transfer(address _to, uint256 _value) override public returns (bool success) {
+    function transfer(address _to, uint256 _value)
+        public
+        override
+        returns (bool success)
+    {
         if (upgraded()) {
-            return IERC20Legacy(upgradedContract()).legacyTransfer(_msgSender(), _to, _value);
+            return
+                IERC20Legacy(upgradedContract()).legacyTransfer(
+                    _msgSender(),
+                    _to,
+                    _value
+                );
         } else {
             _transfer(_msgSender(), _to, _value);
             return true;
         }
     }
 
-    function approve(address _spender, uint256 _value) override public returns (bool success) {
+    function approve(address _spender, uint256 _value)
+        public
+        override
+        returns (bool success)
+    {
         if (upgraded()) {
-            return IERC20Legacy(upgradedContract()).legacyApprove(_msgSender(), _spender, _value);
+            return
+                IERC20Legacy(upgradedContract()).legacyApprove(
+                    _msgSender(),
+                    _spender,
+                    _value
+                );
         } else {
             _approve(_msgSender(), _spender, _value);
             return true;
         }
     }
 
-    function transferFrom(address _from, address _to, uint256 _value) override public returns (bool success) {
+    function transferFrom(
+        address _from,
+        address _to,
+        uint256 _value
+    ) public override returns (bool success) {
         if (upgraded()) {
-            return IERC20Legacy(upgradedContract()).legacyTransferFrom(_msgSender(), _from, _to, _value);
+            return
+                IERC20Legacy(upgradedContract()).legacyTransferFrom(
+                    _msgSender(),
+                    _from,
+                    _to,
+                    _value
+                );
         } else {
             _transferFrom(_msgSender(), _from, _to, _value);
             return true;
         }
     }
 
-    function increaseAllowance(address _spender, uint256 _value) override public returns (bool success) {
+    function increaseAllowance(address _spender, uint256 _value)
+        public
+        override
+        returns (bool success)
+    {
         uint256 newvValue = _allowed[_msgSender()][_spender].add(_value);
         if (upgraded()) {
-            return IERC20Legacy(upgradedContract()).legacyApprove(_msgSender(), _spender, newvValue);
+            return
+                IERC20Legacy(upgradedContract()).legacyApprove(
+                    _msgSender(),
+                    _spender,
+                    newvValue
+                );
         } else {
             _approve(_msgSender(), _spender, newvValue);
             return true;
         }
     }
 
-    function decreaseAllowance(address _spender, uint256 _value) override public returns (bool success) {
+    function decreaseAllowance(address _spender, uint256 _value)
+        public
+        override
+        returns (bool success)
+    {
         uint256 newValue = _allowed[_msgSender()][_spender].sub(_value);
         if (upgraded()) {
-            return IERC20Legacy(upgradedContract()).legacyApprove(_msgSender(), _spender, newValue);
+            return
+                IERC20Legacy(upgradedContract()).legacyApprove(
+                    _msgSender(),
+                    _spender,
+                    newValue
+                );
         } else {
             _approve(_msgSender(), _spender, newValue);
             return true;
         }
     }
 
-    function getOwner() override public view returns (address) {
+    function getOwner() public view override returns (address) {
         if (upgraded()) {
             return IBEP20(upgradedContract()).getOwner();
         } else {
@@ -545,17 +772,30 @@ contract Warecash is IERC20, IBEP20, IERC20Legacy {
         }
     }
 
-    function legacyTransfer(address _sender, address _to, uint256 _value) override public onlyLegacy returns (bool success) {
+    function legacyTransfer(
+        address _sender,
+        address _to,
+        uint256 _value
+    ) public override onlyLegacy returns (bool success) {
         _transfer(_sender, _to, _value);
         return true;
     }
 
-    function legacyApprove(address _sender, address _spender, uint256 _value) override public onlyLegacy returns (bool success) {
+    function legacyApprove(
+        address _sender,
+        address _spender,
+        uint256 _value
+    ) public override onlyLegacy returns (bool success) {
         _approve(_sender, _spender, _value);
         return true;
     }
-    
-    function legacyTransferFrom(address _sender, address _from, address _to, uint256 _value) override public onlyLegacy returns (bool success) {
+
+    function legacyTransferFrom(
+        address _sender,
+        address _from,
+        address _to,
+        uint256 _value
+    ) public override onlyLegacy returns (bool success) {
         _transferFrom(_sender, _from, _to, _value);
         return true;
     }

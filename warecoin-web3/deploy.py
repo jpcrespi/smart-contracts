@@ -5,12 +5,12 @@ import build
 
 dotenv.load_dotenv()
 
-compiled = build.Builder.singleFile("Warecash", "0.8.7")
+compiled = build.Builder.singleFile("Warecoin", "0.8.7")
 
-bytecode = compiled["contracts"]["Warecash.sol"]["Warecash"]["evm"]["bytecode"][
+bytecode = compiled["contracts"]["Warecoin.sol"]["Warecoin"]["evm"]["bytecode"][
     "object"
 ]
-abi = compiled["contracts"]["Warecash.sol"]["Warecash"]["abi"]
+abi = compiled["contracts"]["Warecoin.sol"]["Warecoin"]["abi"]
 
 publicKey = os.getenv("PUBLIC_KEY")
 privateKey = os.getenv("PRIVATE_KEY")
