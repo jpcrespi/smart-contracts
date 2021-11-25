@@ -1,17 +1,11 @@
-from brownie import network, accounts, config, Warecoin
-
-
-def get_account():
-    if network.show_active() == "development":
-        return accounts[0]
-    else:
-        return accounts.add(config["wallets"]["from_key"])
+import brownie
+from scripts import utils
 
 
 def deploy():
-    account = get_account()
-    warecoin = Warecoin.deploy({"from": account})
-    print(warecoin)
+    account = utils.get_account()
+    warecoin = brownie.Warecoin.deploy({"from": account}, publish_source=True)
+    print(f"Contract Deployed to {warecoin.address}")
 
 
 def main():
