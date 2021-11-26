@@ -1,10 +1,8 @@
 # Dotenv
 
-#### export PRIVATE_KEY
-#### export WEB3_INFURA_PROJECT_ID
-#### export ETHERSCAN_TOKEN
-
-&nbsp;
+- export PRIVATE_KEY
+- export WEB3_INFURA_PROJECT_ID
+- export ETHERSCAN_TOKEN
 
 # Networks
 
