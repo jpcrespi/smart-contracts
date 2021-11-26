@@ -3,8 +3,8 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../common/safe_math.sol";
-import "../common/ownable.sol";
+import "../common/SafeMath.sol";
+import "../common/Ownable.sol";
 
 contract Blacklistable is Ownable {
     using SafeMath for uint256;

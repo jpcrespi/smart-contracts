@@ -12,17 +12,17 @@ bytecode = compiled["contracts"]["Warecoin.sol"]["Warecoin"]["evm"]["bytecode"][
 ]
 abi = compiled["contracts"]["Warecoin.sol"]["Warecoin"]["abi"]
 
-publicKey = os.getenv("PUBLIC_KEY")
+publicKey = "0x56637455925C0aDE276B16D261b4F0dB04e1A140"
 privateKey = os.getenv("PRIVATE_KEY")
 
-w3 = web3.Web3(web3.Web3.HTTPProvider(os.getenv("RPC_SERVER")))
+w3 = web3.Web3(web3.Web3.HTTPProvider("http://127.0.0.1:8545"))
 tx = (
     w3.eth.contract(abi=abi, bytecode=bytecode)
     .constructor()
     .buildTransaction(
         {
             "gasPrice": w3.eth.gas_price,
-            "chainId": os.getenv("CHAIN_ID"),
+            "chainId": 1337,
             "from": publicKey,
             "nonce": w3.eth.getTransactionCount(publicKey),
         }

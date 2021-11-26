@@ -3,7 +3,7 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "./context.sol";
+import "./Context.sol";
 
 interface IERC173 {
     function owner() external view returns (address);

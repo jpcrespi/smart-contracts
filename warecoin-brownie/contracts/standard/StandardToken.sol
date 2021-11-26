@@ -3,11 +3,11 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../common/ownable.sol";
-import "../common/safe_math.sol";
-import "./pausable.sol";
-import "./blacklistable.sol";
-import "./taxable.sol";
+import "../common/Ownable.sol";
+import "../common/SafeMath.sol";
+import "./Pausable.sol";
+import "./Blacklistable.sol";
+import "./Taxable.sol";
 
 interface IERC20 {
     function name() external view returns (string memory);

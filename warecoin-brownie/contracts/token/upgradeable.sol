@@ -3,7 +3,7 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../common/ownable.sol";
+import "../common/Ownable.sol";
 
 contract Upgradeable is Ownable {
     event Upgraded(address indexed _newContract);

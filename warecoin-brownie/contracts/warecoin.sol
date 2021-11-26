@@ -3,7 +3,7 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "./token/upgradeable_token.sol";
+import "./token/UpgradeableToken.sol";
 
 contract Warecoin is UpgradeableToken {
     constructor() {

@@ -3,8 +3,8 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "../common/safe_math.sol";
-import "../standard/standard_token.sol";
+import "../common/SafeMath.sol";
+import "../standard/StandardToken.sol";
 
 contract MintableToken is StandardToken {
     using SafeMath for uint256;

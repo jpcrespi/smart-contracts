@@ -3,8 +3,8 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "./mintable_token.sol";
-import "./upgradeable.sol";
+import "./MintableToken.sol";
+import "./Upgradeable.sol";
 
 interface IERC20Legacy {
     function legacyTransfer(
