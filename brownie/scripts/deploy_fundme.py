@@ -1,0 +1,16 @@
+from brownie import config, network, FundMe, Warecoin
+from scripts import utils
+
+
+def deploy_fund_me():
+    account = utils.get_account()
+    fund_me = FundMe.deploy(
+        utils.get_price_feed(),
+        {"from": account},
+        publish_source=config["networks"][network.show_active()].get("verify"),
+    )
+    return fund_me
+
+
+def main():
+    deploy_fund_me()

@@ -1,5 +1,5 @@
 from scripts.utils import get_account, local_networks
-from scripts.deploy import deploy_fund_me
+from scripts.deploy_fundme import deploy_fund_me
 from pytest import skip, raises
 from brownie import accounts, exceptions
 
