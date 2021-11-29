@@ -1,4 +1,4 @@
-from brownie import config, network, FundMe, Warecoin
+from brownie import config, network, FundMe
 from scripts import utils
 
 
