@@ -3,7 +3,7 @@ from scripts import utils
 from time import sleep
 
 
-def deploy_lottery():
+def deploy():
     account = utils.get_account()
     lottery = Lottery.deploy(
         utils.get_contract("eth_usd_price_feed").address,
@@ -18,7 +18,7 @@ def deploy_lottery():
     return lottery
 
 
-def start_lottery():
+def start():
     account = utils.get_account()
     lottery = Lottery[-1]
     tx = lottery.start({"from": account})
@@ -26,7 +26,7 @@ def start_lottery():
     print(f"lottery started!")
 
 
-def enter_lottery():
+def enter():
     account = utils.get_account()
     lottery = Lottery[-1]
     value = lottery.getEntranceFee() + 100000000
@@ -35,7 +35,7 @@ def enter_lottery():
     print(f"account {account.address} entered!")
 
 
-def end_lottery():
+def end():
     account = utils.get_account()
     lottery = Lottery[-1]
     tx1 = utils.fund_with_link(lottery)
@@ -46,7 +46,7 @@ def end_lottery():
 
 
 def main():
-    deploy_lottery()
-    start_lottery()
-    enter_lottery()
-    end_lottery()
+    deploy()
+    start()
+    enter()
+    end()

@@ -2,7 +2,7 @@ from brownie import config, network, FundMe
 from scripts import utils
 
 
-def deploy_fund_me():
+def deploy():
     account = utils.get_account()
     fund_me = FundMe.deploy(
         utils.get_price_feed(),
@@ -13,4 +13,4 @@ def deploy_fund_me():
 
 
 def main():
-    deploy_fund_me()
+    deploy()

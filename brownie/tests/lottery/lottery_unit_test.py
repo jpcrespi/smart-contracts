@@ -1,6 +1,6 @@
 from web3 import Web3
 from scripts.utils import fund_with_link, get_account, get_contract, local_networks
-from scripts.deploy_lottery import deploy_lottery
+from scripts.lottery.deploy import deploy
 from pytest import skip, raises
 from brownie import exceptions
 
@@ -8,7 +8,7 @@ from brownie import exceptions
 def test_get_entrace_fee():
     if local_networks() == False:
         skip("Only local networks")
-    lottery = deploy_lottery()
+    lottery = deploy()
     expected_fee = Web3.toWei(50 / 2000, "ether")
     entrace_fee = lottery.getEntranceFee()
     assert expected_fee == entrace_fee
@@ -17,7 +17,7 @@ def test_get_entrace_fee():
 def test_cannot_enter_unless_starter():
     if local_networks() == False:
         skip("Only local networks")
-    lottery = deploy_lottery()
+    lottery = deploy()
     with raises(exceptions.VirtualMachineError):
         lottery.enter({"from": get_account(), "value": lottery.getEntranceFee()})
 
@@ -25,7 +25,7 @@ def test_cannot_enter_unless_starter():
 def test_can_start_and_enter():
     if local_networks() == False:
         skip("Only local networks")
-    lottery = deploy_lottery()
+    lottery = deploy()
     account = get_account()
     lottery.start({"from": account})
     lottery.enter({"from": account, "value": lottery.getEntranceFee()})
@@ -35,7 +35,7 @@ def test_can_start_and_enter():
 def test_can_end():
     if local_networks() == False:
         skip("Only local networks")
-    lottery = deploy_lottery()
+    lottery = deploy()
     account = get_account()
     lottery.start({"from": account})
     lottery.enter({"from": account, "value": lottery.getEntranceFee()})
@@ -47,7 +47,7 @@ def test_can_end():
 def test_can_pick_winner():
     if local_networks() == False:
         skip("Only local networks")
-    lottery = deploy_lottery()
+    lottery = deploy()
     account = get_account()
     lottery.start({"from": account})
     lottery.enter({"from": account, "value": lottery.getEntranceFee()})

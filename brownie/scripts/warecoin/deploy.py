@@ -2,7 +2,7 @@ from brownie import config, network, Warecoin
 from scripts import utils
 
 
-def deploy_warecoin():
+def deploy():
     account = utils.get_account()
     warecoin = Warecoin.deploy(
         {"from": account},
@@ -12,4 +12,4 @@ def deploy_warecoin():
 
 
 def main():
-    deploy_warecoin()
+    deploy()

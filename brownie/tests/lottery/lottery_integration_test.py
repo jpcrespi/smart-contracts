@@ -1,5 +1,5 @@
 from scripts.utils import local_networks, get_account, fund_with_link
-from scripts.deploy_lottery import deploy_lottery
+from scripts.lottery.deploy import deploy
 from pytest import skip
 from time import sleep
 
@@ -7,7 +7,7 @@ from time import sleep
 def test_can_pick_winner():
     if local_networks() == True:
         skip("Only remote networks")
-    lottery = deploy_lottery()
+    lottery = deploy()
     account = get_account()
     lottery.start({"from": account})
     lottery.enter({"from": account, "value": lottery.getEntranceFee()})
