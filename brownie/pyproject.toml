@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "nativas-evm"
+version = "0.1.0"
+description = ""
+authors = ["Juan Pablo Crespi <juanpablocrespi99@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.10"
+eth-brownie = "^1.18.1"
+Flask = "^2.1.1"
+Flask-SQLAlchemy = "^2.5.1"
+Flask-RESTful = "^0.3.9"
+flasgger = "^0.9.5"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

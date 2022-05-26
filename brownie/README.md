@@ -1,8 +1,10 @@
 # Dotenv
 
-- export PRIVATE_KEY
-- export WEB3_INFURA_PROJECT_ID
-- export ETHERSCAN_TOKEN
+- export PRIVATE_KEY =
+- export WEB3_INFURA_PROJECT_ID =
+- export ETHERSCAN_TOKEN =
+- export FLASK_APP = app
+- export FLASK_ENV = development
 
 # Networks
 
