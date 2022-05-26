@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "nativas-evm"
+name = "smart-contracts"
 version = "0.1.0"
 description = ""
 authors = ["Juan Pablo Crespi <juanpablocrespi99@gmail.com>"]
