@@ -71,7 +71,7 @@ contract ERC721URIStorage is ERC721Metadata {
         uint256 tokenId,
         string memory tokenURI_
     ) internal virtual override {
-        super._afterTokenTransfer(from, to, tokenId, tokenURI_);
+        super._beforeTokenTransfer(from, to, tokenId, tokenURI_);
         // Burn
         if (to == address(0)) {
             _removeTokenURI(tokenId);

@@ -110,10 +110,10 @@ contract ERC721Mintable is ERC721Accesable {
             _doCheckOnERC721Received(address(0), to, tokenId, data);
         }
 
+        _tokenIdTracker.increment();
+
         emit Transfer(address(0), to, tokenId);
 
         _afterTokenTransfer(address(0), to, tokenId, tokenURI);
-
-        _tokenIdTracker.increment();
     }
 }
