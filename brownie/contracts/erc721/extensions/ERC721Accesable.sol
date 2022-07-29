@@ -13,19 +13,19 @@ contract ERC721Accesable is ERC721 {
     /**
      *
      */
-    ERC721Controller internal _controller;
+    address internal _controller;
 
     /**
      *
      */
     constructor() {
-        _controller = new ERC721Controller(_msgSender());
+        _controller = address(new ERC721Controller(_msgSender()));
     }
 
     /**
      *
      */
     function controller() public view returns (address) {
-        return address(_controller);
+        return _controller;
     }
 }

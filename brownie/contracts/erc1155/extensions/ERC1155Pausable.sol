@@ -27,7 +27,7 @@ abstract contract ERC1155Pausable is ERC1155Accesable, Pausable {
      */
     function pause() public virtual {
         require(
-            _controller.isPauser(_msgSender()),
+            PauseAccess(_controller).isPauser(_msgSender()),
             "ERC1155: sender does not have role"
         );
         _pause();
@@ -44,7 +44,7 @@ abstract contract ERC1155Pausable is ERC1155Accesable, Pausable {
      */
     function unpause() public virtual {
         require(
-            _controller.isPauser(_msgSender()),
+            PauseAccess(_controller).isPauser(_msgSender()),
             "ERC1155: sender does not have role"
         );
         _unpause();

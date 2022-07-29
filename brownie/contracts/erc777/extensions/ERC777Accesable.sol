@@ -13,19 +13,19 @@ contract ERC777Accesable is ERC777 {
     /**
      *
      */
-    ERC777Controller internal _controller;
+    address internal _controller;
 
     /**
      *
      */
     constructor() {
-        _controller = new ERC777Controller(_msgSender());
+        _controller = address(new ERC777Controller(_msgSender()));
     }
 
     /**
      *
      */
     function controller() public view returns (address) {
-        return address(_controller);
+        return _controller;
     }
 }

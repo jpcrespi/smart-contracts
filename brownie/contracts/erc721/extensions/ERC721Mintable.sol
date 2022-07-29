@@ -30,7 +30,7 @@ contract ERC721Mintable is ERC721Accesable {
      */
     function mint(address to, string memory tokenURI) public virtual {
         require(
-            _controller.isMinter(_msgSender()),
+            MintAccess(_controller).isMinter(_msgSender()),
             "ERC721Mintable: sender does not have role"
         );
         _mint(to, tokenURI, "", false);
@@ -47,7 +47,7 @@ contract ERC721Mintable is ERC721Accesable {
      */
     function safeMint(address to, string memory tokenURI) public virtual {
         require(
-            _controller.isMinter(_msgSender()),
+            MintAccess(_controller).isMinter(_msgSender()),
             "ERC721Mintable: sender does not have role"
         );
         _mint(to, tokenURI, "", true);
@@ -64,7 +64,7 @@ contract ERC721Mintable is ERC721Accesable {
         bytes memory data
     ) public virtual {
         require(
-            _controller.isMinter(_msgSender()),
+            MintAccess(_controller).isMinter(_msgSender()),
             "ERC721Mintable: sender does not have role"
         );
         _mint(to, tokenURI, data, true);

@@ -31,7 +31,7 @@ contract ERC777Mintable is ERC777Accesable {
         bytes memory operatorData
     ) public virtual {
         require(
-            _controller.isMinter(_msgSender()),
+            MintAccess(_controller).isMinter(_msgSender()),
             "ERC777Mintable: sender does not have role"
         );
         _mint(account, amount, userData, operatorData);

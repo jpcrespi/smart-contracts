@@ -7,25 +7,25 @@ import "../ERC20.sol";
 import "../controller/ERC20Controller.sol";
 
 /**
-*
+ *
  */
 contract ERC20Accesable is ERC20 {
     /**
      *
      */
-    ERC20Controller internal _controller;
+    address internal _controller;
 
     /**
      *
      */
     constructor() {
-        _controller = new ERC20Controller(_msgSender());
+        _controller = address(new ERC20Controller(_msgSender()));
     }
 
     /**
      *
      */
     function controller() public view returns (address) {
-        return address(_controller);
+        return _controller;
     }
 }

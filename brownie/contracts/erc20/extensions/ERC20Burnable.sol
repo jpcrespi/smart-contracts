@@ -23,7 +23,7 @@ contract ERC20Burnable is ERC20Accesable {
      */
     function burn(uint256 amount) public virtual returns (bool) {
         require(
-            _controller.isBurner(_msgSender()),
+            BurnAccess(_controller).isBurner(_msgSender()),
             "ERC20Burnable: sender does not have role"
         );
         _burn(_msgSender(), amount);
@@ -47,7 +47,7 @@ contract ERC20Burnable is ERC20Accesable {
         returns (bool)
     {
         require(
-            _controller.isBurner(_msgSender()),
+            BurnAccess(_controller).isBurner(_msgSender()),
             "ERC20Burnable: sender does not have role"
         );
         _spendAllowance(from, _msgSender(), amount);

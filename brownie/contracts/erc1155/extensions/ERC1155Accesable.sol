@@ -17,19 +17,19 @@ contract ERC1155Accesable is ERC1155 {
     /**
      *
      */
-    ERC1155Controller internal _controller;
+    address internal _controller;
 
     /**
      *
      */
     constructor() {
-        _controller = new ERC1155Controller(_msgSender());
+        _controller = address(new ERC1155Controller(_msgSender()));
     }
 
     /**
      *
      */
     function controller() public view returns (address) {
-        return address(_controller);
+        return _controller;
     }
 }

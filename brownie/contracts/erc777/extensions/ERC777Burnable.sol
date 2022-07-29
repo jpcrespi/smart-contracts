@@ -28,7 +28,7 @@ contract ERC777Burnable is ERC777Accesable {
      */
     function burn(uint256 amount, bytes memory data) public virtual override {
         require(
-            _controller.isBurner(_msgSender()),
+            BurnAccess(_controller).isBurner(_msgSender()),
             "ERC777Burnable: sender does not have role"
         );
         _burn(_msgSender(), amount, data, "");
@@ -46,7 +46,7 @@ contract ERC777Burnable is ERC777Accesable {
         bytes memory operatorData
     ) public virtual override {
         require(
-            _controller.isBurner(_msgSender()),
+            BurnAccess(_controller).isBurner(_msgSender()),
             "ERC777Burnable: sender does not have role"
         );
         require(

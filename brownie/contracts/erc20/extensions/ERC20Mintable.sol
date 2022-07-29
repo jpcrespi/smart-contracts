@@ -26,7 +26,7 @@ contract ERC20Mintable is ERC20Accesable {
      */
     function mint(address to, uint256 amount) public virtual returns (bool) {
         require(
-            _controller.isMinter(_msgSender()),
+            MintAccess(_controller).isMinter(_msgSender()),
             "ERC20Mintable: sender does not have role"
         );
         _mint(to, amount);

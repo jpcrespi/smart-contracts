@@ -25,7 +25,7 @@ contract ERC20Pausable is ERC20Accesable, Pausable {
      */
     function pause() public virtual {
         require(
-            _controller.isPauser(_msgSender()),
+            PauseAccess(_controller).isPauser(_msgSender()),
             "ERC20Pausable: sender does not have role"
         );
         _pause();
@@ -42,7 +42,7 @@ contract ERC20Pausable is ERC20Accesable, Pausable {
      */
     function unpause() public virtual {
         require(
-            _controller.isPauser(_msgSender()),
+            PauseAccess(_controller).isPauser(_msgSender()),
             "ERC20Pausable: sender does not have role"
         );
         _unpause();

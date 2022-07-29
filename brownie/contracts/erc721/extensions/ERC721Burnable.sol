@@ -19,7 +19,7 @@ contract ERC721Burnable is ERC721Accesable {
      */
     function burn(uint256 tokenId) public virtual {
         require(
-            _controller.isBurner(_msgSender()),
+            BurnAccess(_controller).isBurner(_msgSender()),
             "ERC721Burnable: sender does not have role"
         );
         require(

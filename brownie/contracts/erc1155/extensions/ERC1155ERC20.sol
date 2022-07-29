@@ -27,7 +27,7 @@ contract ERC1155ERC20 is ERC1155Accesable, ERC1155Supply, IERC1155ERC20 {
         uint8 decimals_
     ) public virtual {
         require(
-            _controller.isAdapter(_msgSender()),
+            AdapterAccess(_controller).isAdapter(_msgSender()),
             "ERC1155: caller is not the token adapter"
         );
         require(

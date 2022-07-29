@@ -25,7 +25,7 @@ contract ERC777Pausable is ERC777Accesable, Pausable {
      */
     function pause() public virtual {
         require(
-            _controller.isPauser(_msgSender()),
+            PauseAccess(_controller).isPauser(_msgSender()),
             "ERC777Pausable: sender does not have role"
         );
         _pause();
@@ -42,7 +42,7 @@ contract ERC777Pausable is ERC777Accesable, Pausable {
      */
     function unpause() public virtual {
         require(
-            _controller.isPauser(_msgSender()),
+            PauseAccess(_controller).isPauser(_msgSender()),
             "ERC777Pausable: sender does not have role"
         );
         _unpause();

@@ -22,7 +22,7 @@ contract ERC1155Burnable is ERC1155Accesable {
         uint256 value
     ) public virtual {
         require(
-            _controller.isBurner(_msgSender()),
+            BurnAccess(_controller).isBurner(_msgSender()),
             "ERC1155: sender does not have role"
         );
         require(
@@ -42,7 +42,7 @@ contract ERC1155Burnable is ERC1155Accesable {
         uint256[] memory values
     ) public virtual {
         require(
-            _controller.isBurner(_msgSender()),
+            BurnAccess(_controller).isBurner(_msgSender()),
             "ERC1155: sender does not have role"
         );
         require(
