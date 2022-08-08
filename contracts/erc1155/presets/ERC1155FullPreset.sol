@@ -25,7 +25,7 @@ import "../extensions/ERC1155Pausable.sol";
  *
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
-contract ERC1155Preset is
+contract ERC1155FullPreset is
     ERC1155Mintable,
     ERC1155Burnable,
     ERC1155Pausable,

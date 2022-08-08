@@ -1,4 +1,4 @@
-from scripts.utils import Utils
+from scripts import Utils
 from scripts.contracts.erc20.erc20 import ERC20
 from pytest import skip
 

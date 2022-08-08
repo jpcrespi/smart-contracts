@@ -1,4 +1,4 @@
-from scripts.utils import Utils
+from scripts import Utils
 from scripts.contracts.erc20.extensions.erc20_approve import ERC20ApproveMock
 from brownie import exceptions
 from pytest import skip, raises

@@ -25,7 +25,7 @@ import "../extensions/ERC1155URIStorage.sol";
  *
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
-contract ERC1155PurePreset is
+contract ERC1155Preset is
     ERC1155Mintable,
     ERC1155Burnable,
     ERC1155Pausable,

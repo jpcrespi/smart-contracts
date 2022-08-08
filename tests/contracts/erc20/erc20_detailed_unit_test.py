@@ -1,4 +1,4 @@
-from scripts.utils import Utils
+from scripts import Utils
 from scripts.contracts.erc20.erc20_metadata import ERC20Metadata
 from pytest import skip
 

@@ -1,4 +1,4 @@
-from scripts.utils import Utils
+from scripts import Utils
 from scripts.contracts.access.access_control import AccessControl
 from brownie import exceptions
 from pytest import skip, raises

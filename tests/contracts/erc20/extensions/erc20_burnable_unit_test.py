@@ -1,4 +1,4 @@
-from scripts.utils import Utils
+from scripts import Utils
 from scripts.contracts.erc20.extensions.erc20_burnable import ERC20BurnableMock
 from brownie import exceptions
 from pytest import skip, raises
@@ -13,7 +13,7 @@ def test_erc20_burnable():
     contract = ERC20BurnableMock(owner, 100, owner)
     assert contract.balanceOf(owner) == 100
     assert contract.totalSupply() == 100
-    assert contract.burn(owner, 25, owner)
+    assert contract.burn(25, owner)
     assert contract.balanceOf(owner) == 75
     assert contract.totalSupply() == 75
 
@@ -28,11 +28,11 @@ def test_erc20_burnable_from():
     assert contract.balanceOf(account1) == 100
     assert contract.totalSupply() == 100
     with raises(exceptions.VirtualMachineError):
-        contract.burnFrom(owner, account1, 25, owner)
+        contract.burnFrom(account1, 25, owner)
     contract.approve(owner, 25, account1)
     contract.approve(account2, 25, account1)
     with raises(exceptions.VirtualMachineError):
-        contract.burnFrom(account2, account1, 25, account2)
-    assert contract.burnFrom(owner, account1, 25, owner)
+        contract.burnFrom(account1, 25, account2)
+    assert contract.burnFrom(account1, 25, owner)
     assert contract.balanceOf(account1) == 75
     assert contract.totalSupply() == 75

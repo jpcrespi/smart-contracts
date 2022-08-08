@@ -1,4 +1,4 @@
-from scripts.utils import Utils
+from scripts import Utils
 
 # Projects
 Project = Utils.mainProject()

@@ -1,4 +1,4 @@
-from scripts.utils import Utils
+from scripts import Utils
 from scripts.contracts.access.controllable import Controllable
 from pytest import skip
 
