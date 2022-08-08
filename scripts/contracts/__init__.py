@@ -1,44 +1,44 @@
-import brownie as Project
+import brownie
 
 # Access
-Accesable = Project.Accesable
-Controllable = Project.Controllable
-AccessControlEnumerable = Project.AccessControlEnumerableMock
-AccessControl = Project.AccessControlMock
-Ownable = Project.OwnableMock
+Accesable = brownie.Accesable
+Controllable = brownie.Controllable
+AccessControlEnumerable = brownie.AccessControlEnumerableMock
+AccessControl = brownie.AccessControlMock
+Ownable = brownie.OwnableMock
 # Access # Extensions
-AdapterAccess = Project.AdapterAccessMock
-BurnAccess = Project.BurnAccessMock
-MintAccess = Project.MintAccessMock
-PauseAccess = Project.PauseAccessMock
+AdapterAccess = brownie.AdapterAccessMock
+BurnAccess = brownie.BurnAccessMock
+MintAccess = brownie.MintAccessMock
+PauseAccess = brownie.PauseAccessMock
 # Security
-Pausable = Project.PausableMock
-Whitelistable = Project.Whitelistable
+Pausable = brownie.PausableMock
+Whitelistable = brownie.Whitelistable
 # Utils
-Context = Project.ContextMock
+Context = brownie.ContextMock
 # ERC20
-ERC20 = Project.ERC20
-ERC20Mock = Project.ERC20Mock
-ERC20Metadata = Project.ERC20Metadata
+ERC20 = brownie.ERC20
+ERC20Mock = brownie.ERC20Mock
+ERC20Metadata = brownie.ERC20Metadata
 # ERC20 # Controller
-ERC20Controller = Project.ERC20Controller
+ERC20Controller = brownie.ERC20Controller
 # ERC20 # Extensions
-BEP20 = Project.BEP20
-ERC20Accesable = Project.ERC20Accesable
-ERC20Approve = Project.ERC20Approve
-ERC20ApproveMock = Project.ERC20ApproveMock
-ERC20Burnable = Project.ERC20Burnable
-ERC20BurnableMock = Project.ERC20BurnableMock
-ERC20Mintable = Project.ERC20Mintable
-ERC20MintableMock = Project.ERC20MintableMock
-ERC20Pausable = Project.ERC20Pausable
-ERC20PausableMock = Project.ERC20PausableMock
+BEP20 = brownie.BEP20
+ERC20Accesable = brownie.ERC20Accesable
+ERC20Approve = brownie.ERC20Approve
+ERC20ApproveMock = brownie.ERC20ApproveMock
+ERC20Burnable = brownie.ERC20Burnable
+ERC20BurnableMock = brownie.ERC20BurnableMock
+ERC20Mintable = brownie.ERC20Mintable
+ERC20MintableMock = brownie.ERC20MintableMock
+ERC20Pausable = brownie.ERC20Pausable
+ERC20PausableMock = brownie.ERC20PausableMock
 # ERC20 # Presets
-ERC20Preset = Project.ERC20Preset
-ERC20PresetMock = Project.ERC20PresetMock
+ERC20Preset = brownie.ERC20Preset
+ERC20PresetMock = brownie.ERC20PresetMock
 # Offset
-Offset = Project.Offset
+Offset = brownie.Offset
 # Offset # Extensions
-OffsetMintable = Project.OffsetMintable
+OffsetMintable = brownie.OffsetMintable
 # Offset # Presets
-OffsetPreset = Project.OffsetPreset
+OffsetPreset = brownie.OffsetPreset
