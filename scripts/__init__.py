@@ -31,9 +31,9 @@ class Utils(object):
 
     @classmethod
     def mainProject(cls):
-        name = "NativasEvmProject"
+        name = "SmartContractProject"
         if hasattr(project, name):
-            return project.NativasEvmProject
+            return project.SmartContractProject
         else:
             proj = project.load(name=name)
             proj.load_config()
