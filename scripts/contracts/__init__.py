@@ -1,7 +1,5 @@
-from scripts import Utils
+import brownie as Project
 
-# Projects
-Project = Utils.mainProject()
 # Access
 Accesable = Project.Accesable
 Controllable = Project.Controllable

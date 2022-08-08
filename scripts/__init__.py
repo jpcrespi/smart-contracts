@@ -1,5 +1,4 @@
-from pathlib import Path
-from brownie import project, network, config, accounts, ZERO_ADDRESS
+from brownie import network, config, accounts, ZERO_ADDRESS
 
 
 class Utils(object):
@@ -28,28 +27,3 @@ class Utils(object):
     @classmethod
     def getAccountZero(cls):
         return accounts.at(ZERO_ADDRESS, force=True)
-
-    @classmethod
-    def mainProject(cls):
-        name = "SmartContractProject"
-        if hasattr(project, name):
-            return project.SmartContractProject
-        else:
-            proj = project.load(name=name)
-            proj.load_config()
-            print(f" * {name} loaded!")
-            return proj
-
-    @classmethod
-    def openZeppelinProject(cls):
-        name = "OpenzeppelinContracts450Project"
-        if hasattr(project, name):
-            return project.OpenzeppelinContracts450Project
-        else:
-            path = Path.home().joinpath(
-                ".brownie", "packages", config["dependencies"][0]
-            )
-            proj = project.load(project_path=path)
-            proj.load_config()
-            print(f" * {name} loaded!")
-            return proj
