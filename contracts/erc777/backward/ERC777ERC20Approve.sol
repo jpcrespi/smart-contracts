@@ -13,7 +13,7 @@ import "./ERC777ERC20.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-contract ERC777ERC20Approve is ERC777ERC20, IERC20Approve {
+abstract contract ERC777ERC20Approve is ERC777ERC20, IERC20Approve {
     /**
      * @dev Atomically increases the allowance granted to `spender` by the caller.
      *

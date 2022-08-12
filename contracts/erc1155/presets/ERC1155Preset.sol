@@ -6,8 +6,8 @@ pragma solidity ^0.8.0;
 import "../extensions/ERC1155Mintable.sol";
 import "../extensions/ERC1155Burnable.sol";
 import "../extensions/ERC1155Pausable.sol";
+import "../extensions/ERC1155Metadata.sol";
 import "../extensions/ERC1155Supply.sol";
-import "../extensions/ERC1155URIStorage.sol";
 
 /**
  * @dev {ERC1155} token, including:
@@ -29,13 +29,16 @@ contract ERC1155Preset is
     ERC1155Mintable,
     ERC1155Burnable,
     ERC1155Pausable,
-    ERC1155Supply,
-    ERC1155URIStorage
+    ERC1155Metadata,
+    ERC1155Supply
 {
     /**
      *
      */
-    constructor(string memory uri_) ERC1155URIStorage(uri_) {}
+    constructor(address controller_, string memory uri_)
+        ERC1155Accesable(controller_)
+        ERC1155Metadata(uri_)
+    {}
 
     /**
      *

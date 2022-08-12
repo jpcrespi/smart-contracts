@@ -8,19 +8,33 @@ import "../ERC777Metadata.sol";
 import "../extensions/ERC777Mintable.sol";
 import "../extensions/ERC777Burnable.sol";
 import "../extensions/ERC777Pausable.sol";
+import "../extensions/ERC777Operable.sol";
 
+/**
+ *
+ */
 contract ERC777Preset is
     ERC777,
     ERC777Metadata,
     ERC777Mintable,
     ERC777Burnable,
-    ERC777Pausable
+    ERC777Pausable,
+    ERC777Operable
 {
+    /**
+     *
+     */
     constructor(
+        address controller_,
+        address[] memory defaultOperators_,
         string memory name_,
         string memory symbol_,
         uint256 granularity_
-    ) ERC777Metadata(name_, symbol_, granularity_) {}
+    )
+        ERC777Accesable(controller_)
+        ERC777Operable(defaultOperators_)
+        ERC777Metadata(name_, symbol_, granularity_)
+    {}
 
     /**
      * @dev See {IERC777-burn}.

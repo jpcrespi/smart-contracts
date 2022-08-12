@@ -6,9 +6,17 @@ pragma solidity ^0.8.0;
 import "../../../interfaces/erc1155/IERC1155ERC20.sol";
 import "./ERC1155Accesable.sol";
 import "./ERC1155Supply.sol";
+import "../../../interfaces/access/IAdaptAccess.sol";
 import {ERC20Adapter} from "../adapters/ERC20Adapter.sol";
 
-contract ERC1155ERC20 is ERC1155Accesable, ERC1155Supply, IERC1155ERC20 {
+/**
+ *
+ */
+abstract contract ERC1155ERC20 is
+    ERC1155Accesable,
+    ERC1155Supply,
+    IERC1155ERC20
+{
     // Mapping token id to adapter address
     mapping(uint256 => address) internal _erc20;
 
@@ -27,7 +35,7 @@ contract ERC1155ERC20 is ERC1155Accesable, ERC1155Supply, IERC1155ERC20 {
         uint8 decimals_
     ) public virtual {
         require(
-            AdapterAccess(_controller).isAdapter(_msgSender()),
+            IAdaptAccess(_controller).isAdapter(_msgSender()),
             "ERC1155: caller is not the token adapter"
         );
         require(
@@ -52,7 +60,7 @@ contract ERC1155ERC20 is ERC1155Accesable, ERC1155Supply, IERC1155ERC20 {
      *
      */
     function erc20Owner(uint256) public view virtual returns (address) {
-        return controller();
+        return _controller;
     }
 
     /**

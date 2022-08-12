@@ -6,12 +6,13 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./ERC721Accesable.sol";
 import "./ERC721URIStorage.sol";
+import "../../../interfaces/access/IMintAccess.sol";
 
 /**
  * @title ERC721 Mintable Token
  * @dev ERC721 Token that can be mint (created).
  */
-contract ERC721Mintable is ERC721Accesable {
+abstract contract ERC721Mintable is ERC721Accesable {
     using Counters for Counters.Counter;
 
     //
@@ -30,7 +31,7 @@ contract ERC721Mintable is ERC721Accesable {
      */
     function mint(address to, string memory tokenURI) public virtual {
         require(
-            MintAccess(_controller).isMinter(_msgSender()),
+            IMintAccess(_controller).isMinter(_msgSender()),
             "ERC721Mintable: sender does not have role"
         );
         _mint(to, tokenURI, "", false);
@@ -47,7 +48,7 @@ contract ERC721Mintable is ERC721Accesable {
      */
     function safeMint(address to, string memory tokenURI) public virtual {
         require(
-            MintAccess(_controller).isMinter(_msgSender()),
+            IMintAccess(_controller).isMinter(_msgSender()),
             "ERC721Mintable: sender does not have role"
         );
         _mint(to, tokenURI, "", true);
@@ -64,7 +65,7 @@ contract ERC721Mintable is ERC721Accesable {
         bytes memory data
     ) public virtual {
         require(
-            MintAccess(_controller).isMinter(_msgSender()),
+            IMintAccess(_controller).isMinter(_msgSender()),
             "ERC721Mintable: sender does not have role"
         );
         _mint(to, tokenURI, data, true);

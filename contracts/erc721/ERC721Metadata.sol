@@ -8,6 +8,9 @@ import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "../../interfaces/erc721/IERC721Metadata.sol";
 import "./ERC721Common.sol";
 
+/**
+ *
+ */
 contract ERC721Metadata is ERC721Common, ERC165, IERC721Metadata {
     using Strings for uint256;
 

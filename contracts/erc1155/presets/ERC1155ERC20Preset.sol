@@ -7,7 +7,7 @@ import "../extensions/ERC1155ERC20.sol";
 import "../extensions/ERC1155Mintable.sol";
 import "../extensions/ERC1155Burnable.sol";
 import "../extensions/ERC1155Pausable.sol";
-import "../extensions/ERC1155URIStorage.sol";
+import "../extensions/ERC1155Metadata.sol";
 
 /**
  * @dev {ERC1155} token, including:
@@ -29,13 +29,16 @@ contract ERC1155ERC20Preset is
     ERC1155Mintable,
     ERC1155Burnable,
     ERC1155Pausable,
-    ERC1155URIStorage,
+    ERC1155Metadata,
     ERC1155ERC20
 {
     /**
      *
      */
-    constructor(string memory uri_) ERC1155URIStorage(uri_) {}
+    constructor(address controller_, string memory uri_)
+        ERC1155Accesable(controller_)
+        ERC1155Metadata(uri_)
+    {}
 
     /**
      *

@@ -11,6 +11,9 @@ import "../../../interfaces/bep20/IBEP20.sol";
 import "../../../interfaces/erc20/IERC20Metadata.sol";
 import "../../../interfaces/erc20/IERC20Approve.sol";
 
+/**
+ *
+ */
 contract ERC20Adapter is
     Context,
     ERC165,
@@ -25,7 +28,7 @@ contract ERC20Adapter is
     string internal _symbol;
     uint8 internal _decimals;
     //
-    IERC1155ERC20 internal _entity;
+    address internal _entity;
     //
     mapping(address => mapping(address => uint256)) internal _allowances;
 
@@ -38,7 +41,7 @@ contract ERC20Adapter is
         string memory symbol_,
         uint8 decimals_
     ) {
-        _entity = IERC1155ERC20(_msgSender());
+        _entity = _msgSender();
         _id = id_;
         _name = name_;
         _symbol = symbol_;
@@ -93,14 +96,14 @@ contract ERC20Adapter is
      * @dev See {IBEP20-getOwner}.
      */
     function getOwner() public view override returns (address) {
-        return _entity.erc20Owner(_id);
+        return IERC1155ERC20(_entity).erc20Owner(_id);
     }
 
     /**
      * @dev See {IERC20-totalSupply}.
      */
     function totalSupply() public view virtual override returns (uint256) {
-        return _entity.totalSupply(_id);
+        return IERC1155ERC20(_entity).totalSupply(_id);
     }
 
     /**
@@ -113,7 +116,7 @@ contract ERC20Adapter is
         override
         returns (uint256)
     {
-        return _entity.balanceOf(account, _id);
+        return IERC1155ERC20(_entity).balanceOf(account, _id);
     }
 
     /**
@@ -272,7 +275,14 @@ contract ERC20Adapter is
         address to,
         uint256 amount
     ) internal virtual {
-        _entity.erc20TransferFrom(operator, from, to, _id, amount, "");
+        IERC1155ERC20(_entity).erc20TransferFrom(
+            operator,
+            from,
+            to,
+            _id,
+            amount,
+            ""
+        );
         emit Transfer(from, to, amount);
     }
 

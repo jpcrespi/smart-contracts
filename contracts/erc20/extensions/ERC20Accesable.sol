@@ -4,7 +4,6 @@
 pragma solidity ^0.8.0;
 
 import "../ERC20.sol";
-import "../controller/ERC20Controller.sol";
 
 /**
  *
@@ -18,8 +17,8 @@ contract ERC20Accesable is ERC20 {
     /**
      *
      */
-    constructor() {
-        _controller = address(new ERC20Controller(_msgSender()));
+    constructor(address controller_) {
+        _controller = controller_;
     }
 
     /**

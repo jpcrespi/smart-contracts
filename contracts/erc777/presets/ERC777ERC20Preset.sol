@@ -9,20 +9,34 @@ import "../backward/ERC777ERC20Approve.sol";
 import "../extensions/ERC777Mintable.sol";
 import "../extensions/ERC777Burnable.sol";
 import "../extensions/ERC777Pausable.sol";
+import "../extensions/ERC777Operable.sol";
 
+/**
+ *
+ */
 contract ERC777ERC20Preset is
     ERC777ERC20,
     ERC777ERC20Metadata,
     ERC777ERC20Approve,
     ERC777Mintable,
     ERC777Burnable,
-    ERC777Pausable
+    ERC777Pausable,
+    ERC777Operable
 {
+    /**
+     *
+     */
     constructor(
+        address controller_,
+        address[] memory defaultOperators_,
         string memory name_,
         string memory symbol_,
         uint256 granularity_
-    ) ERC777ERC20Metadata(name_, symbol_, granularity_) {}
+    )
+        ERC777Accesable(controller_)
+        ERC777Operable(defaultOperators_)
+        ERC777ERC20Metadata(name_, symbol_, granularity_)
+    {}
 
     /**
      * @dev See {IERC20-totalSupply}.

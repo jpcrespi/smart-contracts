@@ -31,7 +31,6 @@ import "../../interfaces/erc20/IERC20.sol";
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
  */
-
 contract ERC20 is Context, IERC20 {
     uint256 internal _totalSupply;
     mapping(address => uint256) internal _balances;
@@ -270,11 +269,4 @@ contract ERC20 is Context, IERC20 {
         address to,
         uint256 amount
     ) internal virtual {}
-}
-
-contract ERC20Mock is ERC20 {
-    constructor(address to, uint256 amount) {
-        _totalSupply += amount;
-        _balances[to] += amount;
-    }
 }

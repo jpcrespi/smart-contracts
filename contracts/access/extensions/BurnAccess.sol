@@ -4,19 +4,19 @@
 pragma solidity ^0.8.0;
 
 import "../Accesable.sol";
+import "../../../interfaces/access/IBurnAccess.sol";
 
 /**
  *
  */
-abstract contract BurnAccess is Accesable {
+contract BurnAccess is Accesable, IBurnAccess {
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
     /**
-     * @dev Grants `BURNER_ROLE` to the account that
-     * deploys the contract.
+     * @dev Grants `BURNER_ROLE` to the account that deploys the contract.
      */
     constructor() {
-        _grantRole(BURNER_ROLE, getAdmin(0));
+        _grantRole(BURNER_ROLE, _msgSender());
     }
 
     /**
@@ -25,8 +25,4 @@ abstract contract BurnAccess is Accesable {
     function isBurner(address account) public view returns (bool) {
         return hasRole(BURNER_ROLE, account);
     }
-}
-
-contract BurnAccessMock is BurnAccess {
-    constructor(address account) Accesable(account) {}
 }

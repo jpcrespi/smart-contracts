@@ -4,7 +4,6 @@
 pragma solidity ^0.8.0;
 
 import "../ERC1155.sol";
-import "../controller/ERC1155Controller.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token.
@@ -22,8 +21,8 @@ contract ERC1155Accesable is ERC1155 {
     /**
      *
      */
-    constructor() {
-        _controller = address(new ERC1155Controller(_msgSender()));
+    constructor(address controller_) {
+        _controller = controller_;
     }
 
     /**

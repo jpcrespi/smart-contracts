@@ -4,19 +4,19 @@
 pragma solidity ^0.8.0;
 
 import "../Accesable.sol";
+import "../../../interfaces/access/IPauseAccess.sol";
 
 /**
  *
  */
-abstract contract PauseAccess is Accesable {
+contract PauseAccess is Accesable, IPauseAccess {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     /**
-     * @dev Grants `PAUSER_ROLE` to the account that
-     * deploys the contract.
+     * @dev Grants `PAUSER_ROLE` to the account that deploys the contract.
      */
     constructor() {
-        _grantRole(PAUSER_ROLE, getAdmin(0));
+        _grantRole(PAUSER_ROLE, _msgSender());
     }
 
     /**
@@ -25,8 +25,4 @@ abstract contract PauseAccess is Accesable {
     function isPauser(address account) public view returns (bool) {
         return hasRole(PAUSER_ROLE, account);
     }
-}
-
-contract PauseAccessMock is PauseAccess {
-    constructor(address account) Accesable(account) {}
 }

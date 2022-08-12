@@ -15,6 +15,7 @@ import "../../../interfaces/erc1155/IERC1155Supply.sol";
  * same id are not going to be minted.
  */
 abstract contract ERC1155Supply is ERC1155, IERC1155Supply {
+    //
     mapping(uint256 => uint256) internal _totalSupply;
 
     /**

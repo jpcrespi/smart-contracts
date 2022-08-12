@@ -4,13 +4,14 @@
 pragma solidity ^0.8.0;
 
 import "./ERC20Accesable.sol";
+import "../../../interfaces/access/IBurnAccess.sol";
 
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-contract ERC20Burnable is ERC20Accesable {
+abstract contract ERC20Burnable is ERC20Accesable {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */
@@ -23,7 +24,7 @@ contract ERC20Burnable is ERC20Accesable {
      */
     function burn(uint256 amount) public virtual returns (bool) {
         require(
-            BurnAccess(_controller).isBurner(_msgSender()),
+            IBurnAccess(_controller).isBurner(_msgSender()),
             "ERC20Burnable: sender does not have role"
         );
         _burn(_msgSender(), amount);
@@ -47,7 +48,7 @@ contract ERC20Burnable is ERC20Accesable {
         returns (bool)
     {
         require(
-            BurnAccess(_controller).isBurner(_msgSender()),
+            IBurnAccess(_controller).isBurner(_msgSender()),
             "ERC20Burnable: sender does not have role"
         );
         _spendAllowance(from, _msgSender(), amount);
@@ -88,12 +89,5 @@ contract ERC20Burnable is ERC20Accesable {
         emit Transfer(from, address(0), amount);
 
         _afterTokenTransfer(from, address(0), amount);
-    }
-}
-
-contract ERC20BurnableMock is ERC20Burnable {
-    constructor(address to, uint256 amount) {
-        _totalSupply += amount;
-        _balances[to] += amount;
     }
 }

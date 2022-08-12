@@ -4,6 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC1155Accesable.sol";
+import "../../../interfaces/access/IMintAccess.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token.
@@ -12,7 +13,7 @@ import "./ERC1155Accesable.sol";
  *
  * _Available since v3.1._
  */
-contract ERC1155Mintable is ERC1155Accesable {
+abstract contract ERC1155Mintable is ERC1155Accesable {
     /**
      * @dev Creates `amount` new tokens for `to`, of token type `id`.
      *
@@ -29,7 +30,7 @@ contract ERC1155Mintable is ERC1155Accesable {
         bytes memory data
     ) public virtual {
         require(
-            MintAccess(_controller).isMinter(_msgSender()),
+            IMintAccess(_controller).isMinter(_msgSender()),
             "ERC1155: sender does not have role"
         );
         _mint(to, id, amount, data);
@@ -45,7 +46,7 @@ contract ERC1155Mintable is ERC1155Accesable {
         bytes memory data
     ) public virtual {
         require(
-            MintAccess(_controller).isMinter(_msgSender()),
+            IMintAccess(_controller).isMinter(_msgSender()),
             "ERC1155: sender does not have role"
         );
         _mintBatch(to, ids, amounts, data);

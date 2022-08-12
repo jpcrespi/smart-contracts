@@ -4,12 +4,13 @@
 pragma solidity ^0.8.0;
 
 import "./ERC721Accesable.sol";
+import "../../../interfaces/access/IBurnAccess.sol";
 
 /**
  * @title ERC721 Burnable Token
  * @dev ERC721 Token that can be burned (destroyed).
  */
-contract ERC721Burnable is ERC721Accesable {
+abstract contract ERC721Burnable is ERC721Accesable {
     /**
      * @dev Burns `tokenId`. See {ERC721-_burn}.
      *
@@ -19,7 +20,7 @@ contract ERC721Burnable is ERC721Accesable {
      */
     function burn(uint256 tokenId) public virtual {
         require(
-            BurnAccess(_controller).isBurner(_msgSender()),
+            IBurnAccess(_controller).isBurner(_msgSender()),
             "ERC721Burnable: sender does not have role"
         );
         require(

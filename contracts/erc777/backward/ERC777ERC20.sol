@@ -22,7 +22,7 @@ import "../extensions/ERC777Accesable.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-contract ERC777ERC20 is ERC777Accesable, IERC20, IBEP20 {
+abstract contract ERC777ERC20 is ERC777Accesable, IERC20, IBEP20 {
     // ERC20-allowances
     mapping(address => mapping(address => uint256)) private _allowances;
 

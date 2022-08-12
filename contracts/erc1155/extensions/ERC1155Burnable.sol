@@ -4,6 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC1155Accesable.sol";
+import "../../../interfaces/access/IBurnAccess.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token.
@@ -12,7 +13,7 @@ import "./ERC1155Accesable.sol";
  *
  * _Available since v3.1._
  */
-contract ERC1155Burnable is ERC1155Accesable {
+abstract contract ERC1155Burnable is ERC1155, ERC1155Accesable {
     /**
      *
      */
@@ -22,7 +23,7 @@ contract ERC1155Burnable is ERC1155Accesable {
         uint256 value
     ) public virtual {
         require(
-            BurnAccess(_controller).isBurner(_msgSender()),
+            IBurnAccess(_controller).isBurner(_msgSender()),
             "ERC1155: sender does not have role"
         );
         require(
@@ -42,7 +43,7 @@ contract ERC1155Burnable is ERC1155Accesable {
         uint256[] memory values
     ) public virtual {
         require(
-            BurnAccess(_controller).isBurner(_msgSender()),
+            IBurnAccess(_controller).isBurner(_msgSender()),
             "ERC1155: sender does not have role"
         );
         require(

@@ -6,13 +6,14 @@ pragma solidity ^0.8.0;
 import "../../../interfaces/erc1155/IERC1155ERC721.sol";
 import "./ERC1155Accesable.sol";
 import "./ERC1155Ownable.sol";
-import "./ERC1155URIStorage.sol";
 import {ERC721Adapter} from "../adapters/ERC721Adapter.sol";
 
-contract ERC1155ERC721 is
+/**
+ *
+ */
+abstract contract ERC1155ERC721 is
     ERC1155Accesable,
     ERC1155Ownable,
-    ERC1155URIStorage,
     IERC1155ERC721
 {
     //
@@ -21,11 +22,7 @@ contract ERC1155ERC721 is
     /**
      *
      */
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        string memory uri_
-    ) ERC1155URIStorage(uri_) {
+    constructor(string memory name_, string memory symbol_) {
         _erc721 = address(new ERC721Adapter(name_, symbol_));
     }
 
@@ -82,4 +79,15 @@ contract ERC1155ERC721 is
     ) internal virtual override(ERC1155, ERC1155Ownable) {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
+}
+
+abstract contract ERC1155ERC721Mock is ERC1155ERC721 {
+    /**
+     *
+     */
+    constructor(
+        address controller_,
+        string memory name_,
+        string memory symbol_
+    ) ERC1155Accesable(controller_) ERC1155ERC721(name_, symbol_) {}
 }

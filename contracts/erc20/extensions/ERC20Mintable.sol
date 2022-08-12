@@ -4,6 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC20Accesable.sol";
+import "../../../interfaces/access/IMintAccess.sol";
 
 /**
  * @dev Extension of {ERC20} that adds a set of accounts with the {MinterRole},
@@ -11,7 +12,7 @@ import "./ERC20Accesable.sol";
  *
  * At construction, the deployer of the contract is the only minter.
  */
-contract ERC20Mintable is ERC20Accesable {
+abstract contract ERC20Mintable is ERC20Accesable {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */
@@ -26,7 +27,7 @@ contract ERC20Mintable is ERC20Accesable {
      */
     function mint(address to, uint256 amount) public virtual returns (bool) {
         require(
-            MintAccess(_controller).isMinter(_msgSender()),
+            IMintAccess(_controller).isMinter(_msgSender()),
             "ERC20Mintable: sender does not have role"
         );
         _mint(to, amount);
@@ -54,12 +55,5 @@ contract ERC20Mintable is ERC20Accesable {
         emit Transfer(address(0), to, amount);
 
         _afterTokenTransfer(address(0), to, amount);
-    }
-}
-
-contract ERC20MintableMock is ERC20Mintable {
-    constructor(address to, uint256 amount) {
-        _totalSupply += amount;
-        _balances[to] += amount;
     }
 }

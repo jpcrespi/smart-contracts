@@ -70,10 +70,3 @@ contract ERC20Approve is ERC20, IERC20Approve {
         return true;
     }
 }
-
-contract ERC20ApproveMock is ERC20Approve {
-    constructor(address to, uint256 amount) {
-        _totalSupply += amount;
-        _balances[to] += amount;
-    }
-}

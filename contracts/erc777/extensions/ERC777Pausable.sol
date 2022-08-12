@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "./ERC777Accesable.sol";
+import "../../../interfaces/access/IPauseAccess.sol";
 
 /**
  * @dev ERC777 token with pausable token transfers, minting and burning.
@@ -13,7 +14,7 @@ import "./ERC777Accesable.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-contract ERC777Pausable is ERC777Accesable, Pausable {
+abstract contract ERC777Pausable is ERC777Accesable, Pausable {
     /**
      * @dev Pauses all token transfers.
      *
@@ -25,7 +26,7 @@ contract ERC777Pausable is ERC777Accesable, Pausable {
      */
     function pause() public virtual {
         require(
-            PauseAccess(_controller).isPauser(_msgSender()),
+            IPauseAccess(_controller).isPauser(_msgSender()),
             "ERC777Pausable: sender does not have role"
         );
         _pause();
@@ -42,7 +43,7 @@ contract ERC777Pausable is ERC777Accesable, Pausable {
      */
     function unpause() public virtual {
         require(
-            PauseAccess(_controller).isPauser(_msgSender()),
+            IPauseAccess(_controller).isPauser(_msgSender()),
             "ERC777Pausable: sender does not have role"
         );
         _unpause();

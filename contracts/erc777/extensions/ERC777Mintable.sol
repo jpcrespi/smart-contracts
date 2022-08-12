@@ -4,6 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC777Accesable.sol";
+import "../../../interfaces/access/IMintAccess.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -20,7 +21,7 @@ import "./ERC777Accesable.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-contract ERC777Mintable is ERC777Accesable {
+abstract contract ERC777Mintable is ERC777Accesable {
     /**
      *
      */
@@ -31,7 +32,7 @@ contract ERC777Mintable is ERC777Accesable {
         bytes memory operatorData
     ) public virtual {
         require(
-            MintAccess(_controller).isMinter(_msgSender()),
+            IMintAccess(_controller).isMinter(_msgSender()),
             "ERC777Mintable: sender does not have role"
         );
         _mint(account, amount, userData, operatorData);

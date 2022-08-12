@@ -4,7 +4,6 @@
 pragma solidity ^0.8.0;
 
 import "../ERC721.sol";
-import "../controller/ERC721Controller.sol";
 
 /**
  *
@@ -18,8 +17,8 @@ contract ERC721Accesable is ERC721 {
     /**
      *
      */
-    constructor() {
-        _controller = address(new ERC721Controller(_msgSender()));
+    constructor(address controller_) {
+        _controller = controller_;
     }
 
     /**

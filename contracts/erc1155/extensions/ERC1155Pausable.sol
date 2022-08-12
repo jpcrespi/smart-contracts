@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "./ERC1155Accesable.sol";
+import "../../../interfaces/access/IPauseAccess.sol";
 
 /**
  * @dev ERC1155 token with pausable token transfers, minting and burning.
@@ -27,7 +28,7 @@ abstract contract ERC1155Pausable is ERC1155Accesable, Pausable {
      */
     function pause() public virtual {
         require(
-            PauseAccess(_controller).isPauser(_msgSender()),
+            IPauseAccess(_controller).isPauser(_msgSender()),
             "ERC1155: sender does not have role"
         );
         _pause();
@@ -44,7 +45,7 @@ abstract contract ERC1155Pausable is ERC1155Accesable, Pausable {
      */
     function unpause() public virtual {
         require(
-            PauseAccess(_controller).isPauser(_msgSender()),
+            IPauseAccess(_controller).isPauser(_msgSender()),
             "ERC1155: sender does not have role"
         );
         _unpause();

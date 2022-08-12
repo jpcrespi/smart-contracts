@@ -9,7 +9,7 @@ import "./ERC20Accesable.sol";
 /**
  *
  */
-contract BEP20 is ERC20Accesable, IBEP20 {
+abstract contract BEP20 is ERC20Accesable, IBEP20 {
     /**
      * @dev Returns the bep20 token owner which is necessary for binding with bep2 token.
      *

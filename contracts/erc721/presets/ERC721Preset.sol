@@ -10,6 +10,9 @@ import "../extensions/ERC721Pausable.sol";
 import "../extensions/ERC721Enumerable.sol";
 import "../extensions/ERC721URIStorage.sol";
 
+/**
+ *
+ */
 contract ERC721Preset is
     ERC721Mintable,
     ERC721Burnable,
@@ -18,10 +21,11 @@ contract ERC721Preset is
     ERC721URIStorage
 {
     constructor(
+        address controller_,
         string memory name_,
         string memory symbol_,
         string memory baseURI_
-    ) ERC721URIStorage(name_, symbol_, baseURI_) {}
+    ) ERC721Accesable(controller_) ERC721URIStorage(name_, symbol_, baseURI_) {}
 
     /**
      * @dev See {IERC165-supportsInterface}.
