@@ -12,5 +12,5 @@ contract ERC777BurnableMock is ERC777Burnable {
     /**
      *
      */
-    constructor(address controller_) ERC777Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

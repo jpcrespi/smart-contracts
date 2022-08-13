@@ -12,5 +12,5 @@ contract ERC1155BurnableMock is ERC1155Burnable {
     /**
      *
      */
-    constructor(address controller_) ERC1155Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

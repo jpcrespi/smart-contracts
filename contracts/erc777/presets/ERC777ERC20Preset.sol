@@ -33,7 +33,7 @@ contract ERC777ERC20Preset is
         string memory symbol_,
         uint256 granularity_
     )
-        ERC777Accesable(controller_)
+        Controllable(controller_)
         ERC777Operable(defaultOperators_)
         ERC777ERC20Metadata(name_, symbol_, granularity_)
     {}

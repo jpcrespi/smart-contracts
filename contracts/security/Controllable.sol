@@ -3,12 +3,14 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC20.sol";
-
 /**
  *
  */
-contract ERC20Accesable is ERC20 {
+contract Controllable {
+    /**
+     * @dev Emitted when the controller is set.
+     */
+    event Controller(address account);
     /**
      *
      */
@@ -19,6 +21,7 @@ contract ERC20Accesable is ERC20 {
      */
     constructor(address controller_) {
         _controller = controller_;
+        emit Controller(controller_);
     }
 
     /**

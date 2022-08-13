@@ -3,7 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC20Accesable.sol";
+import "../ERC20.sol";
+import "../../security/Controllable.sol";
 import "../../../interfaces/access/IBurnAccess.sol";
 
 /**
@@ -11,7 +12,7 @@ import "../../../interfaces/access/IBurnAccess.sol";
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-abstract contract ERC20Burnable is ERC20Accesable {
+abstract contract ERC20Burnable is ERC20, Controllable {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */

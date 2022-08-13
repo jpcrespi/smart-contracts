@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../Accesable.sol";
-import "../../../interfaces/access/IAdaptAccess.sol";
+import "./AdminAccess.sol";
+import "../../interfaces/access/IAdaptAccess.sol";
 
 /**
  *
  */
-contract AdaptAccess is Accesable, IAdaptAccess {
+contract AdaptAccess is AdminAccess, IAdaptAccess {
     bytes32 public constant ADAPTER_ROLE = keccak256("ADAPTER_ROLE");
 
     /**

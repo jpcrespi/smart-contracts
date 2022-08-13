@@ -3,7 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC1155Accesable.sol";
+import "../ERC1155.sol";
+import "../../security/Controllable.sol";
 import "../../../interfaces/access/IBurnAccess.sol";
 
 /**
@@ -13,7 +14,7 @@ import "../../../interfaces/access/IBurnAccess.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155Burnable is ERC1155, ERC1155Accesable {
+abstract contract ERC1155Burnable is ERC1155, Controllable {
     /**
      *
      */

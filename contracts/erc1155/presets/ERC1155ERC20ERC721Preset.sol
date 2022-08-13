@@ -43,7 +43,7 @@ contract ERC1155ERC20ERC721Preset is
         string memory symbol_,
         string memory uri_
     )
-        ERC1155Accesable(controller_)
+        Controllable(controller_)
         ERC1155Metadata(uri_)
         ERC1155ERC721(name_, symbol_)
     {}

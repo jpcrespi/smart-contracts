@@ -36,7 +36,7 @@ contract ERC1155Preset is
      *
      */
     constructor(address controller_, string memory uri_)
-        ERC1155Accesable(controller_)
+        Controllable(controller_)
         ERC1155Metadata(uri_)
     {}
 

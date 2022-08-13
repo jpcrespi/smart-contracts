@@ -5,7 +5,8 @@ pragma solidity ^0.8.0;
 
 import "../../../interfaces/erc20/IERC20.sol";
 import "../../../interfaces/bep20/IBEP20.sol";
-import "../extensions/ERC777Accesable.sol";
+import "../ERC777.sol";
+import "../../security/Controllable.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -22,7 +23,7 @@ import "../extensions/ERC777Accesable.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-abstract contract ERC777ERC20 is ERC777Accesable, IERC20, IBEP20 {
+abstract contract ERC777ERC20 is ERC777, Controllable, IERC20, IBEP20 {
     // ERC20-allowances
     mapping(address => mapping(address => uint256)) private _allowances;
 

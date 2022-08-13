@@ -4,12 +4,13 @@
 pragma solidity ^0.8.0;
 
 import "../../../interfaces/bep20/IBEP20.sol";
-import "./ERC20Accesable.sol";
+import "../ERC20.sol";
+import "../../security/Controllable.sol";
 
 /**
  *
  */
-abstract contract BEP20 is ERC20Accesable, IBEP20 {
+abstract contract BEP20 is ERC20, Controllable, IBEP20 {
     /**
      * @dev Returns the bep20 token owner which is necessary for binding with bep2 token.
      *

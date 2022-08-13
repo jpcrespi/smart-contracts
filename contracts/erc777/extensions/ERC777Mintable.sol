@@ -3,7 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC777Accesable.sol";
+import "../ERC777.sol";
+import "../../security/Controllable.sol";
 import "../../../interfaces/access/IMintAccess.sol";
 
 /**
@@ -21,7 +22,7 @@ import "../../../interfaces/access/IMintAccess.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-abstract contract ERC777Mintable is ERC777Accesable {
+abstract contract ERC777Mintable is ERC777, Controllable {
     /**
      *
      */

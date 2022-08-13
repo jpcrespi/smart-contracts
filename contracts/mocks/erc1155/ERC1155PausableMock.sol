@@ -12,5 +12,5 @@ contract ERC1155PausableMock is ERC1155Pausable {
     /**
      *
      */
-    constructor(address controller_) ERC1155Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

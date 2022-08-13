@@ -12,5 +12,5 @@ contract ERC777MintableMock is ERC777Mintable {
     /**
      *
      */
-    constructor(address controller_) ERC777Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

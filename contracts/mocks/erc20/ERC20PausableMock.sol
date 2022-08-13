@@ -16,7 +16,7 @@ contract ERC20PausableMock is ERC20Pausable {
         address controller_,
         address to_,
         uint256 amount_
-    ) ERC20Accesable(controller_) {
+    ) Controllable(controller_) {
         _totalSupply += amount_;
         _balances[to_] += amount_;
     }

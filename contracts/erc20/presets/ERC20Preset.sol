@@ -29,7 +29,7 @@ contract ERC20Preset is
         string memory name_,
         string memory symbol_,
         uint8 decimals_
-    ) ERC20Accesable(controller_) ERC20Metadata(name_, symbol_, decimals_) {}
+    ) Controllable(controller_) ERC20Metadata(name_, symbol_, decimals_) {}
 
     /**
      *

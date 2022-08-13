@@ -12,5 +12,5 @@ contract ERC777ERC20Mock is ERC777ERC20 {
     /**
      *
      */
-    constructor(address controller_) ERC777Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

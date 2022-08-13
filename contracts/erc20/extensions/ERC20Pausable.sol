@@ -4,7 +4,8 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "./ERC20Accesable.sol";
+import "../ERC20.sol";
+import "../../security/Controllable.sol";
 import "../../../interfaces/access/IPauseAccess.sol";
 
 /**
@@ -14,7 +15,7 @@ import "../../../interfaces/access/IPauseAccess.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-abstract contract ERC20Pausable is ERC20Accesable, Pausable {
+abstract contract ERC20Pausable is ERC20, Controllable, Pausable {
     /**
      * @dev Pauses all token transfers.
      *

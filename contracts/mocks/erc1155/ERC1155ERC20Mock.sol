@@ -12,5 +12,5 @@ contract ERC1155ERC20Mock is ERC1155ERC20 {
     /**
      *
      */
-    constructor(address controller_) ERC1155Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

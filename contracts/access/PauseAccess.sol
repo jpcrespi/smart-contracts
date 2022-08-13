@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../Accesable.sol";
-import "../../../interfaces/access/IPauseAccess.sol";
+import "./AdminAccess.sol";
+import "../../interfaces/access/IPauseAccess.sol";
 
 /**
  *
  */
-contract PauseAccess is Accesable, IPauseAccess {
+contract PauseAccess is AdminAccess, IPauseAccess {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     /**

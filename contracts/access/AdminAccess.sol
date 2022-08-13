@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 /**
  *
  */
-contract Accesable is AccessControlEnumerable {
+contract AdminAccess is AccessControlEnumerable {
     /**
      * @dev Grants `DEFAULT_ADMIN_ROLE` to the account that
      * deploys the contract.

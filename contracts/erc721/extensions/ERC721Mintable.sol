@@ -4,15 +4,15 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./ERC721Accesable.sol";
-import "./ERC721URIStorage.sol";
+import "../ERC721.sol";
+import "../../security/Controllable.sol";
 import "../../../interfaces/access/IMintAccess.sol";
 
 /**
  * @title ERC721 Mintable Token
  * @dev ERC721 Token that can be mint (created).
  */
-abstract contract ERC721Mintable is ERC721Accesable {
+abstract contract ERC721Mintable is ERC721, Controllable {
     using Counters for Counters.Counter;
 
     //

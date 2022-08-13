@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../Accesable.sol";
-import "../../../interfaces/access/IBurnAccess.sol";
+import "./AdminAccess.sol";
+import "../../interfaces/access/IBurnAccess.sol";
 
 /**
  *
  */
-contract BurnAccess is Accesable, IBurnAccess {
+contract BurnAccess is AdminAccess, IBurnAccess {
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
     /**

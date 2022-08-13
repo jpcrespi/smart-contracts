@@ -3,7 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC20Accesable.sol";
+import "../ERC20.sol";
+import "../../security/Controllable.sol";
 import "../../../interfaces/access/IMintAccess.sol";
 
 /**
@@ -12,7 +13,7 @@ import "../../../interfaces/access/IMintAccess.sol";
  *
  * At construction, the deployer of the contract is the only minter.
  */
-abstract contract ERC20Mintable is ERC20Accesable {
+abstract contract ERC20Mintable is ERC20, Controllable {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */

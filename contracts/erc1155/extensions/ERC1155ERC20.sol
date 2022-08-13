@@ -4,8 +4,9 @@
 pragma solidity ^0.8.0;
 
 import "../../../interfaces/erc1155/IERC1155ERC20.sol";
-import "./ERC1155Accesable.sol";
+import "../ERC1155.sol";
 import "./ERC1155Supply.sol";
+import "../../security/Controllable.sol";
 import "../../../interfaces/access/IAdaptAccess.sol";
 import {ERC20Adapter} from "../adapters/ERC20Adapter.sol";
 
@@ -13,7 +14,8 @@ import {ERC20Adapter} from "../adapters/ERC20Adapter.sol";
  *
  */
 abstract contract ERC1155ERC20 is
-    ERC1155Accesable,
+    ERC1155,
+    Controllable,
     ERC1155Supply,
     IERC1155ERC20
 {

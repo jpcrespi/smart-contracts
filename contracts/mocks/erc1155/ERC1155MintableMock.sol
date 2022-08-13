@@ -12,5 +12,5 @@ contract ERC1155MintableMock is ERC1155Mintable {
     /**
      *
      */
-    constructor(address controller_) ERC1155Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

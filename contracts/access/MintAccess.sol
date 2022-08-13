@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../Accesable.sol";
-import "../../../interfaces/access/IMintAccess.sol";
+import "./AdminAccess.sol";
+import "../../interfaces/access/IMintAccess.sol";
 
 /**
  *
  */
-contract MintAccess is Accesable, IMintAccess {
+contract MintAccess is AdminAccess, IMintAccess {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     /**

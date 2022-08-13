@@ -12,5 +12,5 @@ contract ERC721BurnableMock is ERC721Burnable {
     /**
      *
      */
-    constructor(address controller_) ERC721Accesable(controller_) {}
+    constructor(address controller_) Controllable(controller_) {}
 }

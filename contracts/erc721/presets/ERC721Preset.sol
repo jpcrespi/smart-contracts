@@ -25,7 +25,7 @@ contract ERC721Preset is
         string memory name_,
         string memory symbol_,
         string memory baseURI_
-    ) ERC721Accesable(controller_) ERC721URIStorage(name_, symbol_, baseURI_) {}
+    ) Controllable(controller_) ERC721URIStorage(name_, symbol_, baseURI_) {}
 
     /**
      * @dev See {IERC165-supportsInterface}.
