@@ -22,7 +22,13 @@ contract AdaptAccess is AdminAccess, IAdaptAccess {
     /**
      *
      */
-    function isAdapter(address account) public view returns (bool) {
+    function isAdapter(address account)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
         return hasRole(ADAPTER_ROLE, account);
     }
 }

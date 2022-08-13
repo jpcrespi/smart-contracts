@@ -22,7 +22,13 @@ contract MintAccess is AdminAccess, IMintAccess {
     /**
      *
      */
-    function isMinter(address account) public view returns (bool) {
+    function isMinter(address account)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
         return hasRole(MINTER_ROLE, account);
     }
 }

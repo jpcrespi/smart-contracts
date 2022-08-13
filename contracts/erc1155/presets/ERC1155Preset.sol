@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "../extensions/ERC1155Mintable.sol";
 import "../extensions/ERC1155Burnable.sol";
 import "../extensions/ERC1155Pausable.sol";
-import "../extensions/ERC1155Metadata.sol";
+import "../extensions/ERC1155URIStorage.sol";
 import "../extensions/ERC1155Supply.sol";
 
 /**
@@ -29,7 +29,7 @@ contract ERC1155Preset is
     ERC1155Mintable,
     ERC1155Burnable,
     ERC1155Pausable,
-    ERC1155Metadata,
+    ERC1155URIStorage,
     ERC1155Supply
 {
     /**

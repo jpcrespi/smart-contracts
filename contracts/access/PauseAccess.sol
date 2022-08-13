@@ -22,7 +22,13 @@ contract PauseAccess is AdminAccess, IPauseAccess {
     /**
      *
      */
-    function isPauser(address account) public view returns (bool) {
+    function isPauser(address account)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
         return hasRole(PAUSER_ROLE, account);
     }
 }

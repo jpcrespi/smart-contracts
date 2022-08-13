@@ -22,7 +22,13 @@ contract BurnAccess is AdminAccess, IBurnAccess {
     /**
      *
      */
-    function isBurner(address account) public view returns (bool) {
+    function isBurner(address account)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
         return hasRole(BURNER_ROLE, account);
     }
 }

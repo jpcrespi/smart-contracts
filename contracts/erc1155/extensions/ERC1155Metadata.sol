@@ -5,7 +5,9 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "../../../interfaces/erc1155/IERC1155MetadataURI.sol";
+import "../../../interfaces/access/IEditAccess.sol";
 import "../ERC1155.sol";
+import "../../security/Controllable.sol";
 
 /**
  * @dev ERC1155 token with storage based token URI management.
@@ -13,7 +15,11 @@ import "../ERC1155.sol";
  *
  * _Available since v4.6._
  */
-contract ERC1155Metadata is ERC1155, IERC1155MetadataURI {
+abstract contract ERC1155Metadata is
+    ERC1155,
+    Controllable,
+    IERC1155MetadataURI
+{
     using Strings for uint256;
 
     // Used as the URI for all token types by relying on ID substitution,
@@ -38,5 +44,23 @@ contract ERC1155Metadata is ERC1155, IERC1155MetadataURI {
         returns (string memory)
     {
         return string(abi.encodePacked(_uri, id.toString()));
+    }
+
+    /**
+     *
+     */
+    function setBaseURI(string memory uri_) internal virtual {
+        require(
+            IEditAccess(_controller).isEditor(_msgSender()),
+            "ERC1155: sender does not have role"
+        );
+        _setBaseURI(uri_);
+    }
+
+    /**
+     * @dev Sets `baseURI` as the `_baseURI` for all tokens
+     */
+    function _setBaseURI(string memory uri_) internal virtual {
+        _uri = uri_;
     }
 }
