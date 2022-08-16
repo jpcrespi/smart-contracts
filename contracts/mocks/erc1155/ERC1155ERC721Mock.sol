@@ -14,12 +14,11 @@ contract ERC1155ERC721Mock is ERC1155ERC721 {
      */
     constructor(
         address controller_,
-        string memory name_,
-        string memory symbol_,
+        address erc721Adapter_,
         string memory uri_
     )
         Controllable(controller_)
+        ERC1155ERC721(erc721Adapter_)
         ERC1155Metadata(uri_)
-        ERC1155ERC721(name_, symbol_)
     {}
 }

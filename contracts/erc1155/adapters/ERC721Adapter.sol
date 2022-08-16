@@ -22,15 +22,19 @@ contract ERC721Adapter is Context, ERC165, IERC721, IERC721Metadata {
     string internal _name;
     string internal _symbol;
     //
-    address internal _entity;
+    address internal _erc1155;
     // Mapping from token ID to approved address
     mapping(uint256 => address) private _tokenApprovals;
 
     /**
      *
      */
-    constructor(string memory name_, string memory symbol_) {
-        _entity = _msgSender();
+    constructor(
+        address erc1155_,
+        string memory name_,
+        string memory symbol_
+    ) {
+        _erc1155 = erc1155_;
         _name = name_;
         _symbol = symbol_;
     }
@@ -69,21 +73,21 @@ contract ERC721Adapter is Context, ERC165, IERC721, IERC721Metadata {
      *
      */
     function tokenURI(uint256 id) public view override returns (string memory) {
-        return IERC1155ERC721(_entity).uri(id);
+        return IERC1155ERC721(_erc1155).uri(id);
     }
 
     /**
      * @dev See {IERC721-balanceOf}
      */
     function balanceOf(address owner) public view override returns (uint256) {
-        return IERC1155ERC721(_entity).balanceOf(owner);
+        return IERC1155ERC721(_erc1155).balanceOf(owner);
     }
 
     /**
      * @dev See {IERC721-ownerOf}
      */
     function ownerOf(uint256 tokenId) public view override returns (address) {
-        return IERC1155ERC721(_entity).ownerOf(tokenId);
+        return IERC1155ERC721(_erc1155).ownerOf(tokenId);
     }
 
     /**
@@ -184,7 +188,7 @@ contract ERC721Adapter is Context, ERC165, IERC721, IERC721Metadata {
         override
         returns (bool)
     {
-        return IERC1155ERC721(_entity).isApprovedForAll(owner, operator);
+        return IERC1155ERC721(_erc1155).isApprovedForAll(owner, operator);
     }
 
     /**
@@ -193,7 +197,7 @@ contract ERC721Adapter is Context, ERC165, IERC721, IERC721Metadata {
      * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
      */
     function _exists(uint256 id) internal view virtual returns (bool) {
-        return IERC1155ERC721(_entity).exists(id);
+        return IERC1155ERC721(_erc1155).exists(id);
     }
 
     /**
@@ -227,7 +231,7 @@ contract ERC721Adapter is Context, ERC165, IERC721, IERC721Metadata {
         bool approved
     ) internal virtual {
         require(owner != operator, "ERC721: approve to caller");
-        IERC1155ERC721(_entity).erc721SetApprovalForAll(
+        IERC1155ERC721(_erc1155).erc721SetApprovalForAll(
             owner,
             operator,
             approved
@@ -282,7 +286,7 @@ contract ERC721Adapter is Context, ERC165, IERC721, IERC721Metadata {
         uint256 id,
         bytes memory data
     ) internal virtual {
-        IERC1155ERC721(_entity).erc721TransferFrom(
+        IERC1155ERC721(_erc1155).erc721TransferFrom(
             operator,
             from,
             to,

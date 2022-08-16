@@ -4,7 +4,11 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "./ERC1155Metadata.sol";
+import "../../security/Controllable.sol";
+import "../../../interfaces/erc1155/IERC1155MetadataURI.sol";
+import "../../../interfaces/erc1155/IERC1155Exists.sol";
+import "../../../interfaces/access/IEditAccess.sol";
+import "../ERC1155.sol";
 
 /**
  * @dev ERC1155 token with storage based token URI management.
@@ -12,7 +16,12 @@ import "./ERC1155Metadata.sol";
  *
  * _Available since v4.6._
  */
-abstract contract ERC1155URIStorage is ERC1155Metadata {
+abstract contract ERC1155URIStorage is
+    Controllable,
+    ERC1155,
+    IERC1155Exists,
+    IERC1155MetadataURI
+{
     using Strings for uint256;
 
     // Mapping for token URIs
@@ -43,9 +52,20 @@ abstract contract ERC1155URIStorage is ERC1155Metadata {
         override
         returns (string memory)
     {
-        string memory tokenURI = _tokenURIs[tokenId];
-        // If token URI is set, concatenate base URI and tokenURI (via abi.encodePacked).
-        return bytes(tokenURI).length > 0 ? tokenURI : super.uri(tokenId);
+        return _tokenURIs[tokenId];
+    }
+
+    /**
+     * @dev Indicates whether any token exist with a given id, or not.
+     */
+    function exists(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
+        return bytes(uri(tokenId)).length > 0;
     }
 
     /**
@@ -65,5 +85,26 @@ abstract contract ERC1155URIStorage is ERC1155Metadata {
     function _setURI(uint256 tokenId, string memory tokenURI) internal virtual {
         _tokenURIs[tokenId] = tokenURI;
         emit URI(uri(tokenId), tokenId);
+    }
+
+    /**
+     * @dev See {ERC1155-_beforeTokenTransfer}.
+     */
+    function _beforeTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) internal virtual override {
+        super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
+        for (uint256 i = 0; i < ids.length; ++i) {
+            uint256 tokenId = ids[i];
+            require(
+                exists(tokenId),
+                "ERC1155: token does not exist (missing URI)"
+            );
+        }
     }
 }

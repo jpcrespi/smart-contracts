@@ -17,7 +17,7 @@ import "../../../interfaces/access/IPauseAccess.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155Pausable is ERC1155, Controllable, Pausable {
+abstract contract ERC1155Pausable is Controllable, Pausable, ERC1155 {
     /**
      * @dev Pauses all token transfers.
      *

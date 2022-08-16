@@ -4,37 +4,51 @@
 pragma solidity ^0.8.0;
 
 import "../../../interfaces/erc1155/IERC1155ERC721.sol";
-import "../ERC1155.sol";
 import "../../security/Controllable.sol";
+import "../ERC1155.sol";
 import "./ERC1155Ownable.sol";
 import "./ERC1155Metadata.sol";
-import {ERC721Adapter} from "../adapters/ERC721Adapter.sol";
 
 /**
  *
  */
 abstract contract ERC1155ERC721 is
-    ERC1155,
     Controllable,
+    ERC1155,
     ERC1155Metadata,
     ERC1155Ownable,
     IERC1155ERC721
 {
     //
-    address internal _erc721;
+    address internal _erc721Adapter;
 
     /**
      *
      */
-    constructor(string memory name_, string memory symbol_) {
-        _erc721 = address(new ERC721Adapter(name_, symbol_));
+    constructor(address erc721Adapter_) {
+        _erc721Adapter = erc721Adapter_;
     }
 
     /**
      *
      */
-    function erc721Adapter() public view returns (address) {
-        return _erc721;
+    function erc721Adapter() public view virtual override returns (address) {
+        return _erc721Adapter;
+    }
+
+    /**
+     *
+     */
+    function erc721SetApprovalForAll(
+        address owner,
+        address operator,
+        bool approved
+    ) public virtual override {
+        require(
+            _msgSender() == erc721Adapter(),
+            "ERC1155: caller is not the token adapter"
+        );
+        _setApprovalForAll(owner, operator, approved);
     }
 
     /**
@@ -47,7 +61,7 @@ abstract contract ERC1155ERC721 is
         uint256 id,
         uint256 amount,
         bytes memory data
-    ) public override {
+    ) public virtual override {
         require(
             _msgSender() == erc721Adapter(),
             "ERC1155: caller is not the token adapter"
@@ -56,18 +70,29 @@ abstract contract ERC1155ERC721 is
     }
 
     /**
-     *
+     * @dev See {IERC1155MetadataURI-uri}.
      */
-    function erc721SetApprovalForAll(
-        address owner,
-        address operator,
-        bool approved
-    ) public override {
-        require(
-            _msgSender() == erc721Adapter(),
-            "ERC1155: caller is not the token adapter"
-        );
-        _setApprovalForAll(owner, operator, approved);
+    function uri(uint256 id)
+        public
+        view
+        virtual
+        override(ERC1155Metadata, IERC1155MetadataURI)
+        returns (string memory)
+    {
+        return super.uri(id);
+    }
+
+    /**
+     * @dev Indicates whether any token exist with a given id, or not.
+     */
+    function exists(uint256 id)
+        public
+        view
+        virtual
+        override(ERC1155Ownable, IERC1155Exists)
+        returns (bool)
+    {
+        return super.exists(id);
     }
 
     /**

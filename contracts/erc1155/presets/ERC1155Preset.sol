@@ -6,8 +6,8 @@ pragma solidity ^0.8.0;
 import "../extensions/ERC1155Mintable.sol";
 import "../extensions/ERC1155Burnable.sol";
 import "../extensions/ERC1155Pausable.sol";
-import "../extensions/ERC1155URIStorage.sol";
 import "../extensions/ERC1155Supply.sol";
+import "../extensions/ERC1155URIStorage.sol";
 
 /**
  * @dev {ERC1155} token, including:
@@ -29,16 +29,13 @@ contract ERC1155Preset is
     ERC1155Mintable,
     ERC1155Burnable,
     ERC1155Pausable,
-    ERC1155URIStorage,
-    ERC1155Supply
+    ERC1155Supply,
+    ERC1155URIStorage
 {
     /**
      *
      */
-    constructor(address controller_, string memory uri_)
-        Controllable(controller_)
-        ERC1155Metadata(uri_)
-    {}
+    constructor(address controller_) Controllable(controller_) {}
 
     /**
      *
@@ -50,7 +47,11 @@ contract ERC1155Preset is
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) internal virtual override(ERC1155, ERC1155Pausable, ERC1155Supply) {
+    )
+        internal
+        virtual
+        override(ERC1155, ERC1155Pausable, ERC1155Supply, ERC1155URIStorage)
+    {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
 }

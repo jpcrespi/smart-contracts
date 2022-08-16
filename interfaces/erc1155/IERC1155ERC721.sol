@@ -4,11 +4,27 @@
 pragma solidity ^0.8.0;
 
 import "./IERC1155.sol";
-import "./IERC1155Supply.sol";
 import "./IERC1155Ownable.sol";
 import "./IERC1155MetadataURI.sol";
 
-interface IERC1155ERC721 is IERC1155Ownable, IERC1155MetadataURI {
+/**
+ *
+ */
+interface IERC1155ERC721 is IERC1155, IERC1155Ownable, IERC1155MetadataURI {
+    /**
+     *
+     */
+    function erc721Adapter() external view returns (address);
+
+    /**
+     *
+     */
+    function erc721SetApprovalForAll(
+        address owner,
+        address operator,
+        bool approved
+    ) external;
+
     /**
      *
      */
@@ -19,14 +35,5 @@ interface IERC1155ERC721 is IERC1155Ownable, IERC1155MetadataURI {
         uint256 id,
         uint256 amount,
         bytes memory data
-    ) external;
-
-    /**
-     *
-     */
-    function erc721SetApprovalForAll(
-        address owner,
-        address operator,
-        bool approved
     ) external;
 }

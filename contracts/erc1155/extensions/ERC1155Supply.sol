@@ -32,13 +32,6 @@ abstract contract ERC1155Supply is ERC1155, IERC1155Supply {
     }
 
     /**
-     * @dev Indicates whether any token exist with a given id, or not.
-     */
-    function exists(uint256 id) public view virtual override returns (bool) {
-        return totalSupply(id) > 0;
-    }
-
-    /**
      * @dev See {ERC1155-_beforeTokenTransfer}.
      */
     function _beforeTokenTransfer(

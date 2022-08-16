@@ -14,7 +14,7 @@ import "../../../interfaces/access/IBurnAccess.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155Burnable is ERC1155, Controllable {
+abstract contract ERC1155Burnable is Controllable, ERC1155 {
     /**
      *
      */

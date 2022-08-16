@@ -3,10 +3,11 @@
 
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "../../interfaces/erc1155/IERC1155TokenReceiver.sol";
 
-contract ERC1155Common {
+contract ERC1155Common is Context {
     using Address for address;
 
     /**

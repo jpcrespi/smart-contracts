@@ -6,7 +6,9 @@
 
 pragma solidity ^0.8.0;
 
-/*is IERC165*/
+/**
+ * is IERC165
+ */
 interface IERC1155 {
     /**
      * @dev Either `TransferSingle` or `TransferBatch` MUST emit when tokens are transferred, including

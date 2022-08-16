@@ -35,10 +35,20 @@ contract ERC1155ERC20Preset is
     /**
      *
      */
-    constructor(address controller_, string memory uri_)
-        Controllable(controller_)
-        ERC1155Metadata(uri_)
-    {}
+    constructor(address controller_) Controllable(controller_) {}
+
+    /**
+     * @dev Indicates whether any token exist with a given id, or not.
+     */
+    function exists(uint256 tokenId)
+        public
+        view
+        virtual
+        override(ERC1155ERC20, ERC1155URIStorage)
+        returns (bool)
+    {
+        return ERC1155URIStorage.exists(tokenId);
+    }
 
     /**
      *
@@ -50,7 +60,11 @@ contract ERC1155ERC20Preset is
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) internal virtual override(ERC1155, ERC1155Pausable, ERC1155ERC20) {
+    )
+        internal
+        virtual
+        override(ERC1155, ERC1155Pausable, ERC1155URIStorage, ERC1155ERC20)
+    {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
 }

@@ -4,23 +4,22 @@
 pragma solidity ^0.8.0;
 
 import "../../../interfaces/erc1155/IERC1155ERC20.sol";
+import "../../../interfaces/access/IEditAccess.sol";
+import "../../security/Controllable.sol";
 import "../ERC1155.sol";
 import "./ERC1155Supply.sol";
-import "../../security/Controllable.sol";
-import "../../../interfaces/access/IAdaptAccess.sol";
-import {ERC20Adapter} from "../adapters/ERC20Adapter.sol";
 
 /**
  *
  */
 abstract contract ERC1155ERC20 is
-    ERC1155,
     Controllable,
+    ERC1155,
     ERC1155Supply,
     IERC1155ERC20
 {
     // Mapping token id to adapter address
-    mapping(uint256 => address) internal _erc20;
+    mapping(uint256 => address) internal _erc20Adapters;
 
     /**
      *
@@ -30,38 +29,26 @@ abstract contract ERC1155ERC20 is
     /**
      *
      */
-    function create(
-        uint256 id_,
-        string memory name_,
-        string memory symbol_,
-        uint8 decimals_
-    ) public virtual {
-        require(
-            IAdaptAccess(_controller).isAdapter(_msgSender()),
-            "ERC1155: caller is not the token adapter"
-        );
-        require(
-            _erc20[id_] == address(0),
-            "ER1C155: cannot create token adapter, already exist"
-        );
-        address adapter = address(
-            new ERC20Adapter(id_, name_, symbol_, decimals_)
-        );
-        _erc20[id_] = adapter;
-        emit Adapter(id_, adapter);
+    function erc20Adapter(uint256 id)
+        public
+        view
+        virtual
+        override
+        returns (address)
+    {
+        return _erc20Adapters[id];
     }
 
     /**
      *
      */
-    function erc20Adapter(uint256 id) public view virtual returns (address) {
-        return _erc20[id];
-    }
-
-    /**
-     *
-     */
-    function erc20Owner(uint256) public view virtual returns (address) {
+    function erc20Owner(uint256)
+        public
+        view
+        virtual
+        override
+        returns (address)
+    {
         return _controller;
     }
 
@@ -84,6 +71,44 @@ abstract contract ERC1155ERC20 is
     }
 
     /**
+     * @dev Indicates whether any token exist with a given id, or not.
+     */
+    function exists(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
+        return erc20Adapter(tokenId) != address(0);
+    }
+
+    /**
+     *
+     */
+    function setERC20Adapter(uint256 tokenId, address tokenAdapter)
+        public
+        virtual
+    {
+        require(
+            IEditAccess(_controller).isEditor(_msgSender()),
+            "ERC1155: caller is not the token adapter"
+        );
+        _setERC20Adapter(tokenId, tokenAdapter);
+    }
+
+    /**
+     *
+     */
+    function _setERC20Adapter(uint256 tokenId, address erc20Adapter_)
+        internal
+        virtual
+    {
+        _erc20Adapters[tokenId] = erc20Adapter_;
+        emit Adapter(tokenId, erc20Adapter_);
+    }
+
+    /**
      * @dev See {ERC1155-_beforeTokenTransfer}.
      */
     function _beforeTokenTransfer(
@@ -95,5 +120,12 @@ abstract contract ERC1155ERC20 is
         bytes memory data
     ) internal virtual override(ERC1155, ERC1155Supply) {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
+        for (uint256 i = 0; i < ids.length; ++i) {
+            uint256 tokenId = ids[i];
+            require(
+                exists(tokenId),
+                "ERC1155: token does not exist (missing ERC20Adapter)"
+            );
+        }
     }
 }

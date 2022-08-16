@@ -14,7 +14,7 @@ import "../../../interfaces/access/IMintAccess.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155Mintable is ERC1155, Controllable {
+abstract contract ERC1155Mintable is Controllable, ERC1155 {
     /**
      * @dev Creates `amount` new tokens for `to`, of token type `id`.
      *

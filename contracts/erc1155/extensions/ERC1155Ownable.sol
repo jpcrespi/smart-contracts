@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC1155Supply.sol";
 import "../../../interfaces/erc1155/IERC1155Ownable.sol";
+import "./ERC1155Supply.sol";
 
 /**
  * @dev Extension of ERC1155 that adds tracking of total supply per id.
@@ -54,12 +54,32 @@ contract ERC1155Ownable is ERC1155Supply, IERC1155Ownable {
         override
         returns (address)
     {
-        address owner = _tokenOwners[id];
+        address owner = _ownerOf(id);
         require(
             owner != address(0),
             "ERC1155Ownable: owner query for nonexistent token"
         );
         return owner;
+    }
+
+    /**
+     * @dev Indicates whether any token exist with a given id, or not.
+     */
+    function exists(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
+        return _ownerOf(tokenId) != address(0);
+    }
+
+    /**
+     *
+     */
+    function _ownerOf(uint256 id) internal view virtual returns (address) {
+        return _tokenOwners[id];
     }
 
     /**
