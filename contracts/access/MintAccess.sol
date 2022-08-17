@@ -3,22 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "./AdminAccess.sol";
 import "../../interfaces/access/IMintAccess.sol";
+import "./roles/MintRole.sol";
 
 /**
  *
  */
-contract MintAccess is AdminAccess, IMintAccess {
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-
-    /**
-     * @dev Grants `MINTER_ROLE` to the account that deploys the contract.
-     */
-    constructor() {
-        _grantRole(MINTER_ROLE, _msgSender());
-    }
-
+contract MintAccess is MintRole, IMintAccess {
     /**
      *
      */

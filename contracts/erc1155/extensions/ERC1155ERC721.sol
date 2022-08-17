@@ -4,8 +4,6 @@
 pragma solidity ^0.8.0;
 
 import "../../../interfaces/erc1155/IERC1155ERC721.sol";
-import "../../security/Controllable.sol";
-import "../ERC1155.sol";
 import "./ERC1155Ownable.sol";
 import "./ERC1155Metadata.sol";
 
@@ -13,8 +11,6 @@ import "./ERC1155Metadata.sol";
  *
  */
 abstract contract ERC1155ERC721 is
-    Controllable,
-    ERC1155,
     ERC1155Metadata,
     ERC1155Ownable,
     IERC1155ERC721

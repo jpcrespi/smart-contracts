@@ -10,7 +10,28 @@ import "../../erc1155/extensions/ERC1155Pausable.sol";
  */
 contract ERC1155PausableMock is ERC1155Pausable {
     /**
+     * @dev Pauses all token transfers.
      *
+     * See {ERC1155Pausable} and {Pausable-_pause}.
+     *
+     * Requirements:
+     *
+     * - the caller must have the `PAUSER_ROLE`.
      */
-    constructor(address controller_) Controllable(controller_) {}
+    function pause() public virtual {
+        _pause();
+    }
+
+    /**
+     * @dev Unpauses all token transfers.
+     *
+     * See {ERC1155Pausable} and {Pausable-_unpause}.
+     *
+     * Requirements:
+     *
+     * - the caller must have the `PAUSER_ROLE`.
+     */
+    function unpause() public virtual {
+        _unpause();
+    }
 }

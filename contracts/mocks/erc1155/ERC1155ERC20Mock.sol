@@ -12,5 +12,10 @@ contract ERC1155ERC20Mock is ERC1155ERC20 {
     /**
      *
      */
-    constructor(address controller_) Controllable(controller_) {}
+    function setERC20Adapter(uint256 tokenId, address tokenAdapter)
+        public
+        virtual
+    {
+        _setERC20Adapter(tokenId, tokenAdapter);
+    }
 }

@@ -4,20 +4,12 @@
 pragma solidity ^0.8.0;
 
 import "../../../interfaces/erc1155/IERC1155ERC20.sol";
-import "../../../interfaces/access/IEditAccess.sol";
-import "../../security/Controllable.sol";
-import "../ERC1155.sol";
 import "./ERC1155Supply.sol";
 
 /**
  *
  */
-abstract contract ERC1155ERC20 is
-    Controllable,
-    ERC1155,
-    ERC1155Supply,
-    IERC1155ERC20
-{
+abstract contract ERC1155ERC20 is ERC1155Supply, IERC1155ERC20 {
     // Mapping token id to adapter address
     mapping(uint256 => address) internal _erc20Adapters;
 
@@ -49,7 +41,7 @@ abstract contract ERC1155ERC20 is
         override
         returns (address)
     {
-        return _controller;
+        return address(0);
     }
 
     /**
@@ -77,24 +69,10 @@ abstract contract ERC1155ERC20 is
         public
         view
         virtual
-        override
+        override(ERC1155Supply, IERC1155Exists)
         returns (bool)
     {
         return erc20Adapter(tokenId) != address(0);
-    }
-
-    /**
-     *
-     */
-    function setERC20Adapter(uint256 tokenId, address tokenAdapter)
-        public
-        virtual
-    {
-        require(
-            IEditAccess(_controller).isEditor(_msgSender()),
-            "ERC1155: caller is not the token adapter"
-        );
-        _setERC20Adapter(tokenId, tokenAdapter);
     }
 
     /**
@@ -118,7 +96,7 @@ abstract contract ERC1155ERC20 is
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) internal virtual override(ERC1155, ERC1155Supply) {
+    ) internal virtual override {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
         for (uint256 i = 0; i < ids.length; ++i) {
             uint256 tokenId = ids[i];

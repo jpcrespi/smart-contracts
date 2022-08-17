@@ -3,8 +3,9 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC1155.sol";
 import "../../../interfaces/erc1155/IERC1155Supply.sol";
+import "../../../interfaces/erc1155/IERC1155Exists.sol";
+import "../ERC1155.sol";
 
 /**
  * @dev Extension of ERC1155 that adds tracking of total supply per id.
@@ -14,7 +15,7 @@ import "../../../interfaces/erc1155/IERC1155Supply.sol";
  * corresponding is an NFT, there is no guarantees that no other token with the
  * same id are not going to be minted.
  */
-abstract contract ERC1155Supply is ERC1155, IERC1155Supply {
+abstract contract ERC1155Supply is ERC1155, IERC1155Supply, IERC1155Exists {
     //
     mapping(uint256 => uint256) internal _totalSupply;
 
@@ -29,6 +30,13 @@ abstract contract ERC1155Supply is ERC1155, IERC1155Supply {
         returns (uint256 supply)
     {
         return _totalSupply[id];
+    }
+
+    /**
+     * @dev Indicates whether any token exist with a given id, or not.
+     */
+    function exists(uint256 id) public view virtual override returns (bool) {
+        return totalSupply(id) > 0;
     }
 
     /**

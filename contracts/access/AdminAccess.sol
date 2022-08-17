@@ -3,21 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "../../interfaces/access/IAdminAccess.sol";
+import "./roles/AdminRole.sol";
 
 /**
  *
  */
-contract AdminAccess is AccessControlEnumerable, IAdminAccess {
-    /**
-     * @dev Grants `DEFAULT_ADMIN_ROLE` to the account that
-     * deploys the contract.
-     */
-    constructor() {
-        _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
-    }
-
+contract AdminAccess is AdminRole, IAdminAccess {
     /**
      *
      */

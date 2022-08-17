@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.0;
 
-import "../extensions/ERC1155ERC20.sol";
 import "../extensions/ERC1155ERC721.sol";
-import "../extensions/ERC1155Mintable.sol";
-import "../extensions/ERC1155Burnable.sol";
-import "../extensions/ERC1155Pausable.sol";
-import "../extensions/ERC1155URIStorage.sol";
+import "../access/ERC1155ERC20Access.sol";
+import "../access/ERC1155MintableAccess.sol";
+import "../access/ERC1155BurnableAccess.sol";
+import "../access/ERC1155PausableAccess.sol";
+import "../access/ERC1155URIStorageAccess.sol";
 
 /**
  * @dev {ERC1155} token, including:
@@ -27,11 +27,11 @@ import "../extensions/ERC1155URIStorage.sol";
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
 contract ERC1155ERC20ERC721Preset is
-    ERC1155Mintable,
-    ERC1155Burnable,
-    ERC1155Pausable,
-    ERC1155URIStorage,
-    ERC1155ERC20,
+    ERC1155MintableAccess,
+    ERC1155BurnableAccess,
+    ERC1155PausableAccess,
+    ERC1155URIStorageAccess,
+    ERC1155ERC20Access,
     ERC1155ERC721
 {
     /**

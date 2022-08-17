@@ -22,3 +22,4 @@ contract ERC1155ERC721Mock is ERC1155ERC721 {
         ERC1155Metadata(uri_)
     {}
 }
+∂

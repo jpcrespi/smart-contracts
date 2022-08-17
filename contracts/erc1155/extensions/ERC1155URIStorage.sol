@@ -4,10 +4,8 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "../../security/Controllable.sol";
 import "../../../interfaces/erc1155/IERC1155MetadataURI.sol";
 import "../../../interfaces/erc1155/IERC1155Exists.sol";
-import "../../../interfaces/access/IEditAccess.sol";
 import "../ERC1155.sol";
 
 /**
@@ -17,7 +15,6 @@ import "../ERC1155.sol";
  * _Available since v4.6._
  */
 abstract contract ERC1155URIStorage is
-    Controllable,
     ERC1155,
     IERC1155Exists,
     IERC1155MetadataURI
@@ -66,17 +63,6 @@ abstract contract ERC1155URIStorage is
         returns (bool)
     {
         return bytes(uri(tokenId)).length > 0;
-    }
-
-    /**
-     *
-     */
-    function setURI(uint256 tokenId, string memory tokenURI) internal virtual {
-        require(
-            IEditAccess(_controller).isEditor(_msgSender()),
-            "ERC1155: sender does not have role"
-        );
-        _setURI(tokenId, tokenURI);
     }
 
     /**

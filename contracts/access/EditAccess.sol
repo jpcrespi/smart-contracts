@@ -3,22 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "./AdminAccess.sol";
 import "../../interfaces/access/IEditAccess.sol";
+import "./roles/EditRole.sol";
 
 /**
  *
  */
-contract EditAccess is AdminAccess, IEditAccess {
-    bytes32 public constant EDITOR_ROLE = keccak256("EDITOR_ROLE");
-
-    /**
-     * @dev Grants `EDITOR_ROLE` to the account that deploys the contract.
-     */
-    constructor() {
-        _grantRole(EDITOR_ROLE, _msgSender());
-    }
-
+contract EditAccess is EditRole, IEditAccess {
     /**
      *
      */
