@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC777.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "../../access/roles/BurnRole.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IBurnAccess.sol";
+import "../ERC777.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -22,7 +23,7 @@ import "../../../interfaces/access/IBurnAccess.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-abstract contract ERC777Burnable is ERC777, Controllable {
+abstract contract ERC777Burnable is ERC777, Controllable, BurnRole {
     /**
      * @dev See {IERC777-burn}.
      *
@@ -30,7 +31,7 @@ abstract contract ERC777Burnable is ERC777, Controllable {
      */
     function burn(uint256 amount, bytes memory data) public virtual override {
         require(
-            IBurnAccess(_controller).isBurner(_msgSender()),
+            IAccessControl(_controller).hasRole(BURNER_ROLE, _msgSender()),
             "ERC777Burnable: sender does not have role"
         );
         _burn(_msgSender(), amount, data, "");
@@ -48,7 +49,7 @@ abstract contract ERC777Burnable is ERC777, Controllable {
         bytes memory operatorData
     ) public virtual override {
         require(
-            IBurnAccess(_controller).isBurner(_msgSender()),
+            IAccessControl(_controller).hasRole(BURNER_ROLE, _msgSender()),
             "ERC777Burnable: sender does not have role"
         );
         require(

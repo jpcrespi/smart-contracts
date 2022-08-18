@@ -4,9 +4,10 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "../ERC777.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "../../access/roles/PauseRole.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IPauseAccess.sol";
+import "../ERC777.sol";
 
 /**
  * @dev ERC777 token with pausable token transfers, minting and burning.
@@ -15,7 +16,7 @@ import "../../../interfaces/access/IPauseAccess.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-abstract contract ERC777Pausable is ERC777, Controllable, Pausable {
+abstract contract ERC777Pausable is ERC777, Controllable, PauseRole, Pausable {
     /**
      * @dev Pauses all token transfers.
      *
@@ -27,7 +28,7 @@ abstract contract ERC777Pausable is ERC777, Controllable, Pausable {
      */
     function pause() public virtual {
         require(
-            IPauseAccess(_controller).isPauser(_msgSender()),
+            IAccessControl(_controller).hasRole(PAUSER_ROLE, _msgSender()),
             "ERC777Pausable: sender does not have role"
         );
         _pause();
@@ -44,7 +45,7 @@ abstract contract ERC777Pausable is ERC777, Controllable, Pausable {
      */
     function unpause() public virtual {
         require(
-            IPauseAccess(_controller).isPauser(_msgSender()),
+            IAccessControl(_controller).hasRole(PAUSER_ROLE, _msgSender()),
             "ERC777Pausable: sender does not have role"
         );
         _unpause();

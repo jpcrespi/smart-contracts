@@ -3,16 +3,17 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC20.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "../../access/roles/BurnRole.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IBurnAccess.sol";
+import "../ERC20.sol";
 
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-abstract contract ERC20Burnable is ERC20, Controllable {
+abstract contract ERC20Burnable is ERC20, Controllable, BurnRole {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */
@@ -25,7 +26,7 @@ abstract contract ERC20Burnable is ERC20, Controllable {
      */
     function burn(uint256 amount) public virtual returns (bool) {
         require(
-            IBurnAccess(_controller).isBurner(_msgSender()),
+            IAccessControl(_controller).hasRole(BURNER_ROLE, _msgSender()),
             "ERC20Burnable: sender does not have role"
         );
         _burn(_msgSender(), amount);
@@ -49,7 +50,7 @@ abstract contract ERC20Burnable is ERC20, Controllable {
         returns (bool)
     {
         require(
-            IBurnAccess(_controller).isBurner(_msgSender()),
+            IAccessControl(_controller).hasRole(BURNER_ROLE, _msgSender()),
             "ERC20Burnable: sender does not have role"
         );
         _spendAllowance(from, _msgSender(), amount);

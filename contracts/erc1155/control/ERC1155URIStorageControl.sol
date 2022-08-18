@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../access/roles/EditRole.sol";
+import "../../access/EditAccess.sol";
 import "../extensions/ERC1155URIStorage.sol";
 
 /**
@@ -12,7 +12,7 @@ import "../extensions/ERC1155URIStorage.sol";
  *
  * _Available since v4.6._
  */
-abstract contract ERC1155URIStorageControl is EditRole, ERC1155URIStorage {
+abstract contract ERC1155URIStorageControl is EditAccess, ERC1155URIStorage {
     /**
      * @dev See {IERC165-supportsInterface}.
      */

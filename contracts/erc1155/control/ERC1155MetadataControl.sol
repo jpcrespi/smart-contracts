@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../../access/roles/EditRole.sol";
 import "../extensions/ERC1155Metadata.sol";
+import "../../access/EditAccess.sol";
 
 /**
  * @dev ERC1155 token with storage based token URI management.
@@ -12,7 +12,7 @@ import "../extensions/ERC1155Metadata.sol";
  *
  * _Available since v4.6._
  */
-abstract contract ERC1155MetadataControl is EditRole, ERC1155Metadata {
+abstract contract ERC1155MetadataControl is EditAccess, ERC1155Metadata {
     /**
      * @dev See {IERC165-supportsInterface}.
      */

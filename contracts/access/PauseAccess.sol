@@ -3,23 +3,17 @@
 
 pragma solidity ^0.8.0;
 
-import "../../interfaces/access/IPauseAccess.sol";
+import "../security/Accessable.sol";
 import "./roles/PauseRole.sol";
 
 /**
  *
  */
-contract PauseAccess is PauseRole, IPauseAccess {
+contract PauseAccess is Accessable, PauseRole {
     /**
-     *
+     * @dev Grants `PAUSER_ROLE` to the account that deploys the contract.
      */
-    function isPauser(address account)
-        public
-        view
-        virtual
-        override
-        returns (bool)
-    {
-        return hasRole(PAUSER_ROLE, account);
+    constructor() {
+        _grantRole(PAUSER_ROLE, _msgSender());
     }
 }

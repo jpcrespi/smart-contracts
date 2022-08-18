@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC777.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "../../access/roles/MintRole.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IMintAccess.sol";
+import "../ERC777.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -22,7 +23,7 @@ import "../../../interfaces/access/IMintAccess.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-abstract contract ERC777Mintable is ERC777, Controllable {
+abstract contract ERC777Mintable is ERC777, Controllable, MintRole {
     /**
      *
      */
@@ -33,7 +34,7 @@ abstract contract ERC777Mintable is ERC777, Controllable {
         bytes memory operatorData
     ) public virtual {
         require(
-            IMintAccess(_controller).isMinter(_msgSender()),
+            IAccessControl(_controller).hasRole(MINTER_ROLE, _msgSender()),
             "ERC777Mintable: sender does not have role"
         );
         _mint(account, amount, userData, operatorData);

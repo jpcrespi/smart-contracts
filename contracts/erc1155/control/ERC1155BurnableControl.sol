@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../extensions/ERC1155Burnable.sol";
-import "../../access/roles/BurnRole.sol";
+import "../../access/BurnAccess.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token.
@@ -13,7 +13,7 @@ import "../../access/roles/BurnRole.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155BurnableControl is BurnRole, ERC1155Burnable {
+abstract contract ERC1155BurnableControl is BurnAccess, ERC1155Burnable {
     /**
      * @dev See {IERC165-supportsInterface}.
      */

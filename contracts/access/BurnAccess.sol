@@ -3,23 +3,17 @@
 
 pragma solidity ^0.8.0;
 
-import "../../interfaces/access/IBurnAccess.sol";
+import "../security/Accessable.sol";
 import "./roles/BurnRole.sol";
 
 /**
  *
  */
-contract BurnAccess is BurnRole, IBurnAccess {
+contract BurnAccess is Accessable, BurnRole {
     /**
-     *
+     * @dev Grants `BURNER_ROLE` to the account that deploys the contract.
      */
-    function isBurner(address account)
-        public
-        view
-        virtual
-        override
-        returns (bool)
-    {
-        return hasRole(BURNER_ROLE, account);
+    constructor() {
+        _grantRole(BURNER_ROLE, _msgSender());
     }
 }

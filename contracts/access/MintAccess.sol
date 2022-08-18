@@ -3,23 +3,17 @@
 
 pragma solidity ^0.8.0;
 
-import "../../interfaces/access/IMintAccess.sol";
+import "../security/Accessable.sol";
 import "./roles/MintRole.sol";
 
 /**
  *
  */
-contract MintAccess is MintRole, IMintAccess {
+contract MintAccess is Accessable, MintRole {
     /**
-     *
+     * @dev Grants `MINTER_ROLE` to the account that deploys the contract.
      */
-    function isMinter(address account)
-        public
-        view
-        virtual
-        override
-        returns (bool)
-    {
-        return hasRole(MINTER_ROLE, account);
+    constructor() {
+        _grantRole(MINTER_ROLE, _msgSender());
     }
 }

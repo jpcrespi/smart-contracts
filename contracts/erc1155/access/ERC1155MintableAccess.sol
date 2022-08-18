@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.0;
 
-import "../extensions/ERC1155Mintable.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IMintAccess.sol";
+import "../../access/roles/MintRole.sol";
+import "../extensions/ERC1155Mintable.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token.
@@ -14,7 +15,11 @@ import "../../../interfaces/access/IMintAccess.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155MintableAccess is Controllable, ERC1155Mintable {
+abstract contract ERC1155MintableAccess is
+    Controllable,
+    MintRole,
+    ERC1155Mintable
+{
     /**
      * @dev Creates `amount` new tokens for `to`, of token type `id`.
      *
@@ -31,7 +36,7 @@ abstract contract ERC1155MintableAccess is Controllable, ERC1155Mintable {
         bytes memory data
     ) public virtual {
         require(
-            IMintAccess(_controller).isMinter(_msgSender()),
+            IAccessControl(_controller).hasRole(MINTER_ROLE, _msgSender()),
             "ERC1155: sender does not have role"
         );
         _mint(to, id, amount, data);
@@ -47,7 +52,7 @@ abstract contract ERC1155MintableAccess is Controllable, ERC1155Mintable {
         bytes memory data
     ) public virtual {
         require(
-            IMintAccess(_controller).isMinter(_msgSender()),
+            IAccessControl(_controller).hasRole(MINTER_ROLE, _msgSender()),
             "ERC1155: sender does not have role"
         );
         _mintBatch(to, ids, amounts, data);

@@ -4,12 +4,12 @@
 pragma solidity ^0.8.0;
 
 import "../extensions/ERC1155ERC20.sol";
-import "../../access/roles/EditRole.sol";
+import "../../access/EditAccess.sol";
 
 /**
  *
  */
-abstract contract ERC1155ERC20Control is EditRole, ERC1155ERC20 {
+abstract contract ERC1155ERC20Control is EditAccess, ERC1155ERC20 {
     /**
      * @dev See {IERC165-supportsInterface}.
      */

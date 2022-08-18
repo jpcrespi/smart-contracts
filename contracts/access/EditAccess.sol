@@ -3,23 +3,17 @@
 
 pragma solidity ^0.8.0;
 
-import "../../interfaces/access/IEditAccess.sol";
+import "../security/Accessable.sol";
 import "./roles/EditRole.sol";
 
 /**
  *
  */
-contract EditAccess is EditRole, IEditAccess {
+contract EditAccess is Accessable, EditRole {
     /**
-     *
+     * @dev Grants `EDITOR_ROLE` to the account that deploys the contract.
      */
-    function isEditor(address account)
-        public
-        view
-        virtual
-        override
-        returns (bool)
-    {
-        return hasRole(EDITOR_ROLE, account);
+    constructor() {
+        _grantRole(EDITOR_ROLE, _msgSender());
     }
 }

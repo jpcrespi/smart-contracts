@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC20.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "../../access/roles/MintRole.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IMintAccess.sol";
+import "../ERC20.sol";
 
 /**
  * @dev Extension of {ERC20} that adds a set of accounts with the {MinterRole},
@@ -13,7 +14,7 @@ import "../../../interfaces/access/IMintAccess.sol";
  *
  * At construction, the deployer of the contract is the only minter.
  */
-abstract contract ERC20Mintable is ERC20, Controllable {
+abstract contract ERC20Mintable is ERC20, Controllable, MintRole {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */
@@ -28,7 +29,7 @@ abstract contract ERC20Mintable is ERC20, Controllable {
      */
     function mint(address to, uint256 amount) public virtual returns (bool) {
         require(
-            IMintAccess(_controller).isMinter(_msgSender()),
+            IAccessControl(_controller).hasRole(MINTER_ROLE, _msgSender()),
             "ERC20Mintable: sender does not have role"
         );
         _mint(to, amount);

@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.0;
 
-import "../extensions/ERC1155Burnable.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "../../access/roles/BurnRole.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IBurnAccess.sol";
+import "../extensions/ERC1155Burnable.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token.
@@ -14,7 +15,11 @@ import "../../../interfaces/access/IBurnAccess.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155BurnableAccess is Controllable, ERC1155Burnable {
+abstract contract ERC1155BurnableAccess is
+    Controllable,
+    BurnRole,
+    ERC1155Burnable
+{
     /**
      *
      */
@@ -24,7 +29,7 @@ abstract contract ERC1155BurnableAccess is Controllable, ERC1155Burnable {
         uint256 value
     ) public virtual {
         require(
-            IBurnAccess(_controller).isBurner(_msgSender()),
+            IAccessControl(_controller).hasRole(BURNER_ROLE, _msgSender()),
             "ERC1155: sender does not have role"
         );
         require(
@@ -44,7 +49,7 @@ abstract contract ERC1155BurnableAccess is Controllable, ERC1155Burnable {
         uint256[] memory values
     ) public virtual {
         require(
-            IBurnAccess(_controller).isBurner(_msgSender()),
+            IAccessControl(_controller).hasRole(BURNER_ROLE, _msgSender()),
             "ERC1155: sender does not have role"
         );
         require(

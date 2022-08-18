@@ -3,15 +3,16 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC721.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "../../access/roles/BurnRole.sol";
 import "../../security/Controllable.sol";
-import "../../../interfaces/access/IBurnAccess.sol";
+import "../ERC721.sol";
 
 /**
  * @title ERC721 Burnable Token
  * @dev ERC721 Token that can be burned (destroyed).
  */
-abstract contract ERC721Burnable is ERC721, Controllable {
+abstract contract ERC721Burnable is ERC721, Controllable, BurnRole {
     /**
      * @dev Burns `tokenId`. See {ERC721-_burn}.
      *
@@ -21,7 +22,7 @@ abstract contract ERC721Burnable is ERC721, Controllable {
      */
     function burn(uint256 tokenId) public virtual {
         require(
-            IBurnAccess(_controller).isBurner(_msgSender()),
+            IAccessControl(_controller).hasRole(BURNER_ROLE, _msgSender()),
             "ERC721Burnable: sender does not have role"
         );
         require(

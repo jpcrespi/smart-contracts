@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../access/roles/PauseRole.sol";
+import "../../access/PauseAccess.sol";
 import "../extensions/ERC1155Pausable.sol";
 
 /**
@@ -15,7 +15,7 @@ import "../extensions/ERC1155Pausable.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155PausableControl is PauseRole, ERC1155Pausable {
+abstract contract ERC1155PausableControl is PauseAccess, ERC1155Pausable {
     /**
      * @dev See {IERC165-supportsInterface}.
      */
