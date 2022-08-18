@@ -28,7 +28,7 @@ abstract contract ERC1155ERC721 is
     /**
      *
      */
-    function erc721Adapter() public view virtual override returns (address) {
+    function erc721Adapter() public view virtual returns (address) {
         return _erc721Adapter;
     }
 

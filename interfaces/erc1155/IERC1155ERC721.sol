@@ -14,11 +14,6 @@ interface IERC1155ERC721 is IERC1155, IERC1155Ownable, IERC1155MetadataURI {
     /**
      *
      */
-    function erc721Adapter() external view returns (address);
-
-    /**
-     *
-     */
     function erc721SetApprovalForAll(
         address owner,
         address operator,

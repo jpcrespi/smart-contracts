@@ -21,27 +21,8 @@ abstract contract ERC1155ERC20 is ERC1155Supply, IERC1155ERC20 {
     /**
      *
      */
-    function erc20Adapter(uint256 id)
-        public
-        view
-        virtual
-        override
-        returns (address)
-    {
+    function erc20Adapter(uint256 id) public view virtual returns (address) {
         return _erc20Adapters[id];
-    }
-
-    /**
-     *
-     */
-    function erc20Owner(uint256)
-        public
-        view
-        virtual
-        override
-        returns (address)
-    {
-        return address(0);
     }
 
     /**

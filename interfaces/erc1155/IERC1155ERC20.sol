@@ -14,16 +14,6 @@ interface IERC1155ERC20 is IERC1155, IERC1155Supply, IERC1155Exists {
     /**
      *
      */
-    function erc20Owner(uint256 id) external view returns (address);
-
-    /**
-     *
-     */
-    function erc20Adapter(uint256 id) external view returns (address);
-
-    /**
-     *
-     */
     function erc20TransferFrom(
         address operator,
         address from,

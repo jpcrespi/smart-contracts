@@ -97,7 +97,7 @@ contract ERC20Adapter is
      * @dev See {IBEP20-getOwner}.
      */
     function getOwner() public view override returns (address) {
-        return IERC1155ERC20(_erc1155).erc20Owner(_id);
+        return _erc1155;
     }
 
     /**
