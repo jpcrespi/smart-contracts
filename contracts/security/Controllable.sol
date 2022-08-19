@@ -10,20 +10,19 @@ import "@openzeppelin/contracts/access/IAccessControl.sol";
  *
  */
 contract Controllable {
+    //
+    address internal _controller;
+
     /**
      * @dev Emitted when the controller is set.
      */
-    event Controller(address account);
-    /**
-     *
-     */
-    address internal _controller;
+    event ControlTransferred(address indexed newController);
 
     /**
      *
      */
     constructor(address controller_) {
-        _setController(controller_);
+        _transferControl(controller_);
     }
 
     /**
@@ -34,16 +33,21 @@ contract Controllable {
     }
 
     /**
-     *
+     * @dev Transfers control of the contract to a new account (`newController`).
+     * Internal function without access restriction.
      */
-    function _setController(address controller_) internal virtual {
+    function _transferControl(address newController) internal virtual {
         require(
-            IERC165(controller_).supportsInterface(
+            newController != address(0),
+            "Controllable: controller is the zero address"
+        );
+        require(
+            IERC165(newController).supportsInterface(
                 type(IAccessControl).interfaceId
             ),
-            "Controller does not support IAccessControl interface"
+            "Controllable: controller does not support IAccessControl interface"
         );
-        _controller = controller_;
-        emit Controller(controller_);
+        _controller = newController;
+        emit ControlTransferred(newController);
     }
 }
