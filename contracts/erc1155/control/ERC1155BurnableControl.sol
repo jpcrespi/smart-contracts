@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
+import "../../access/extensions/BurnAccess.sol";
 import "../extensions/ERC1155Burnable.sol";
-import "../../access/BurnAccess.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token.

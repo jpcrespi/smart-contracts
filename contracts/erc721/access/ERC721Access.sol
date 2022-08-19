@@ -3,13 +3,22 @@
 
 pragma solidity ^0.8.0;
 
-import "../../access/BurnAccess.sol";
-import "../../access/MintAccess.sol";
-import "../../access/PauseAccess.sol";
+import "../../access/Accessable.sol";
+import "../../access/roles/BurnRole.sol";
+import "../../access/roles/MintRole.sol";
+import "../../access/roles/PauseRole.sol";
 
 /**
  *
  */
-contract ERC721Access is BurnAccess, MintAccess, PauseAccess {
-
+contract ERC721Access is Accessable, BurnRole, MintRole, PauseRole {
+    /**
+     * @dev Grants roles to the account that
+     * deploys the contract.
+     */
+    constructor() {
+        _grantRole(BURNER_ROLE, _msgSender());
+        _grantRole(MINTER_ROLE, _msgSender());
+        _grantRole(PAUSER_ROLE, _msgSender());
+    }
 }

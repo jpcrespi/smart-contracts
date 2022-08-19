@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/IAccessControl.sol";
-import "../../security/Controllable.sol";
+import "../../access/Controllable.sol";
 import "../../access/roles/MintRole.sol";
 import "../extensions/ERC1155Mintable.sol";
 

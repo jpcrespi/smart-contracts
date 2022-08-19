@@ -4,8 +4,8 @@
 pragma solidity ^0.8.0;
 
 import "../../../interfaces/bep20/IBEP20.sol";
+import "../../access/Controllable.sol";
 import "../ERC20.sol";
-import "../../security/Controllable.sol";
 
 /**
  *

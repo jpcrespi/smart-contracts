@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/IAccessControl.sol";
 import "../../access/roles/PauseRole.sol";
-import "../../security/Controllable.sol";
+import "../../access/Controllable.sol";
 import "../ERC721.sol";
 
 /**

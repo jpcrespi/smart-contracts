@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
+import "../../access/extensions/EditAccess.sol";
 import "../extensions/ERC1155ERC20.sol";
-import "../../access/EditAccess.sol";
 
 /**
  *

@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
+import "../../access/extensions/EditAccess.sol";
 import "../extensions/ERC1155Metadata.sol";
-import "../../access/EditAccess.sol";
 
 /**
  * @dev ERC1155 token with storage based token URI management.

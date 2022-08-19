@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../access/PauseAccess.sol";
+import "../../access/extensions/PauseAccess.sol";
 import "../extensions/ERC1155Pausable.sol";
 
 /**

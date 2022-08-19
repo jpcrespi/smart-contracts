@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../security/Accessable.sol";
+import "../../access/Accessable.sol";
 import "../../access/roles/BurnRole.sol";
 import "../../access/roles/MintRole.sol";
 import "../../access/roles/PauseRole.sol";

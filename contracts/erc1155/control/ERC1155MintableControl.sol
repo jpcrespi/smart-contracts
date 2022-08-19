@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../access/MintAccess.sol";
+import "../../access/extensions/MintAccess.sol";
 import "../extensions/ERC1155Mintable.sol";
 
 /**

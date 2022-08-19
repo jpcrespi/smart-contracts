@@ -5,8 +5,8 @@ pragma solidity ^0.8.0;
 
 import "../../../interfaces/erc20/IERC20.sol";
 import "../../../interfaces/bep20/IBEP20.sol";
+import "../../access/Controllable.sol";
 import "../ERC777.sol";
-import "../../security/Controllable.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.

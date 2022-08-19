@@ -3,9 +3,6 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/IAccessControl.sol";
-import "../../access/Controllable.sol";
-import "../../access/roles/EditRole.sol";
 import "../extensions/ERC1155URIStorage.sol";
 
 /**
@@ -14,19 +11,11 @@ import "../extensions/ERC1155URIStorage.sol";
  *
  * _Available since v4.6._
  */
-abstract contract ERC1155URIStorageAccess is
-    Controllable,
-    EditRole,
-    ERC1155URIStorage
-{
+abstract contract ERC1155URIStorageMock is ERC1155URIStorage {
     /**
      *
      */
     function setURI(uint256 tokenId, string memory tokenURI) internal virtual {
-        require(
-            IAccessControl(_controller).hasRole(EDITOR_ROLE, _msgSender()),
-            "ERC1155: sender does not have role"
-        );
         _setURI(tokenId, tokenURI);
     }
 }
