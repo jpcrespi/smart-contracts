@@ -23,6 +23,20 @@ contract Controllable {
      *
      */
     constructor(address controller_) {
+        _setController(controller_);
+    }
+
+    /**
+     *
+     */
+    function controller() public view returns (address) {
+        return _controller;
+    }
+
+    /**
+     *
+     */
+    function _setController(address controller_) internal virtual {
         require(
             IERC165(controller_).supportsInterface(
                 type(IAccessControl).interfaceId
@@ -31,12 +45,5 @@ contract Controllable {
         );
         _controller = controller_;
         emit Controller(controller_);
-    }
-
-    /**
-     *
-     */
-    function controller() public view returns (address) {
-        return _controller;
     }
 }

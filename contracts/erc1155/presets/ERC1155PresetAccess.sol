@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../access/ERC1155ERC20Access.sol";
+import "../extensions/ERC1155Supply.sol";
 import "../access/ERC1155MintableAccess.sol";
 import "../access/ERC1155BurnableAccess.sol";
 import "../access/ERC1155PausableAccess.sol";
@@ -25,12 +25,12 @@ import "../access/ERC1155URIStorageAccess.sol";
  *
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
-contract ERC1155ERC20Preset is
+contract ERC1155PresetAccess is
     ERC1155MintableAccess,
     ERC1155BurnableAccess,
     ERC1155PausableAccess,
     ERC1155URIStorageAccess,
-    ERC1155ERC20Access
+    ERC1155Supply
 {
     /**
      *
@@ -44,7 +44,7 @@ contract ERC1155ERC20Preset is
         public
         view
         virtual
-        override(ERC1155ERC20, ERC1155URIStorage)
+        override(ERC1155Supply, ERC1155URIStorage)
         returns (bool)
     {
         return ERC1155URIStorage.exists(tokenId);
@@ -63,7 +63,7 @@ contract ERC1155ERC20Preset is
     )
         internal
         virtual
-        override(ERC1155, ERC1155Pausable, ERC1155URIStorage, ERC1155ERC20)
+        override(ERC1155, ERC1155Pausable, ERC1155Supply, ERC1155URIStorage)
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }

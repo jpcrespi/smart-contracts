@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.0;
 
-import "../extensions/ERC1155Supply.sol";
-import "../access/ERC1155MintableAccess.sol";
-import "../access/ERC1155BurnableAccess.sol";
-import "../access/ERC1155PausableAccess.sol";
-import "../access/ERC1155URIStorageAccess.sol";
+import "../owned/ERC1155MintableOwned.sol";
+import "../owned/ERC1155BurnableOwned.sol";
+import "../owned/ERC1155PausableOwned.sol";
+import "../owned/ERC1155URIStorageOwned.sol";
+import "../owned/ERC1155ERC20Owned.sol";
 
 /**
  * @dev {ERC1155} token, including:
@@ -25,18 +25,13 @@ import "../access/ERC1155URIStorageAccess.sol";
  *
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
-contract ERC1155Preset is
-    ERC1155MintableAccess,
-    ERC1155BurnableAccess,
-    ERC1155PausableAccess,
-    ERC1155URIStorageAccess,
-    ERC1155Supply
+contract ERC1155ERC20PresetOwned is
+    ERC1155MintableOwned,
+    ERC1155BurnableOwned,
+    ERC1155PausableOwned,
+    ERC1155URIStorageOwned,
+    ERC1155ERC20Owned
 {
-    /**
-     *
-     */
-    constructor(address controller_) Controllable(controller_) {}
-
     /**
      * @dev Indicates whether any token exist with a given id, or not.
      */
@@ -44,7 +39,7 @@ contract ERC1155Preset is
         public
         view
         virtual
-        override(ERC1155Supply, ERC1155URIStorage)
+        override(ERC1155ERC20, ERC1155URIStorage)
         returns (bool)
     {
         return ERC1155URIStorage.exists(tokenId);
@@ -63,7 +58,7 @@ contract ERC1155Preset is
     )
         internal
         virtual
-        override(ERC1155, ERC1155Pausable, ERC1155Supply, ERC1155URIStorage)
+        override(ERC1155, ERC1155Pausable, ERC1155URIStorage, ERC1155ERC20)
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
