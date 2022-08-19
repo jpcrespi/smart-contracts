@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../Accessable.sol";
+import "../Accessible.sol";
 import "../roles/MintRole.sol";
 
 /**
  *
  */
-contract MintAccess is Accessable, MintRole {
+contract MintAccess is Accessible, MintRole {
     /**
      * @dev Grants `MINTER_ROLE` to the account that deploys the contract.
      */

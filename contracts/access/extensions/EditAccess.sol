@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../Accessable.sol";
+import "../Accessible.sol";
 import "../roles/EditRole.sol";
 
 /**
  *
  */
-contract EditAccess is Accessable, EditRole {
+contract EditAccess is Accessible, EditRole {
     /**
      * @dev Grants `EDITOR_ROLE` to the account that deploys the contract.
      */

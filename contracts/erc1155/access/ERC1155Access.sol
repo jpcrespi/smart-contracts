@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../access/Accessable.sol";
+import "../../access/Accessible.sol";
 import "../../access/roles/BurnRole.sol";
 import "../../access/roles/MintRole.sol";
 import "../../access/roles/PauseRole.sol";
@@ -12,7 +12,7 @@ import "../../access/roles/EditRole.sol";
 /**
  *
  */
-contract ERC1155Access is Accessable, BurnRole, MintRole, PauseRole, EditRole {
+contract ERC1155Access is Accessible, BurnRole, MintRole, PauseRole, EditRole {
     /**
      * @dev Grants roles to the account that
      * deploys the contract.

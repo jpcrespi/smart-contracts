@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../Accessable.sol";
+import "../Accessible.sol";
 import "../roles/BurnRole.sol";
 
 /**
  *
  */
-contract BurnAccess is Accessable, BurnRole {
+contract BurnAccess is Accessible, BurnRole {
     /**
      * @dev Grants `BURNER_ROLE` to the account that deploys the contract.
      */
