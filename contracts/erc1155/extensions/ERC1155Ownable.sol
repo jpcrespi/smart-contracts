@@ -69,7 +69,7 @@ contract ERC1155Ownable is ERC1155Supply, IERC1155Ownable {
         public
         view
         virtual
-        override(ERC1155Supply, IERC1155Exists)
+        override(ERC1155Supply, IERC1155Ownable)
         returns (bool)
     {
         return _ownerOf(tokenId) != address(0);

@@ -85,7 +85,7 @@ abstract contract ERC1155ERC721 is
         public
         view
         virtual
-        override(ERC1155Ownable, IERC1155Exists)
+        override(ERC1155Ownable, IERC1155Ownable)
         returns (bool)
     {
         return super.exists(id);

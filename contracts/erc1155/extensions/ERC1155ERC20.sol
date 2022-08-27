@@ -50,7 +50,7 @@ abstract contract ERC1155ERC20 is ERC1155Supply, IERC1155ERC20 {
         public
         view
         virtual
-        override(ERC1155Supply, IERC1155Exists)
+        override
         returns (bool)
     {
         return erc20Adapter(tokenId) != address(0);

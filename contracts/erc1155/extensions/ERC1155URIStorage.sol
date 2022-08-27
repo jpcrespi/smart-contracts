@@ -5,7 +5,6 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "../../../interfaces/erc1155/IERC1155MetadataURI.sol";
-import "../../../interfaces/erc1155/IERC1155Exists.sol";
 import "../ERC1155.sol";
 
 /**
@@ -14,11 +13,7 @@ import "../ERC1155.sol";
  *
  * _Available since v4.6._
  */
-abstract contract ERC1155URIStorage is
-    ERC1155,
-    IERC1155Exists,
-    IERC1155MetadataURI
-{
+abstract contract ERC1155URIStorage is ERC1155, IERC1155MetadataURI {
     using Strings for uint256;
 
     // Mapping for token URIs
@@ -55,13 +50,7 @@ abstract contract ERC1155URIStorage is
     /**
      * @dev Indicates whether any token exist with a given id, or not.
      */
-    function exists(uint256 tokenId)
-        public
-        view
-        virtual
-        override
-        returns (bool)
-    {
+    function exists(uint256 tokenId) public view virtual returns (bool) {
         return bytes(uri(tokenId)).length > 0;
     }
 

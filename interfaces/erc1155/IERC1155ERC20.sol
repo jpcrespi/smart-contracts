@@ -5,12 +5,11 @@ pragma solidity ^0.8.0;
 
 import "./IERC1155.sol";
 import "./IERC1155Supply.sol";
-import "./IERC1155Exists.sol";
 
 /**
  *
  */
-interface IERC1155ERC20 is IERC1155, IERC1155Supply, IERC1155Exists {
+interface IERC1155ERC20 is IERC1155, IERC1155Supply {
     /**
      *
      */
