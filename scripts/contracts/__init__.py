@@ -1,11 +1,13 @@
 import brownie
 
 # Access
-Accesable = brownie.Accesable
+Accessible = brownie.Accessible
 Controllable = brownie.Controllable
 AccessControlEnumerable = brownie.AccessControlEnumerableMock
 AccessControl = brownie.AccessControlMock
 Ownable = brownie.OwnableMock
+# Access # Roles
+BurnRole = brownie.BurnRole
 # Access # Extensions
 AdapterAccess = brownie.AdapterAccessMock
 BurnAccess = brownie.BurnAccessMock

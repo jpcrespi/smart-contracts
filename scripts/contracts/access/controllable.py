@@ -5,8 +5,8 @@ from scripts.contracts.utils.context import Context
 class Controllable(Context):
     __contract: Contract
 
-    def __init__(self, sender):
-        self.__contract = Contract.deploy({"from": sender})
+    def __init__(self, controller, sender):
+        self.__contract = Contract.deploy(controller, {"from": sender})
 
     def contract(self):
         return self.__contract

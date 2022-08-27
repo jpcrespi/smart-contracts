@@ -22,7 +22,7 @@ abstract contract ERC1155MetadataAccess is
     /**
      *
      */
-    function setBaseURI(string memory baseURI_) internal virtual {
+    function setBaseURI(string memory baseURI_) public virtual {
         require(
             IAccessControl(_controller).hasRole(EDITOR_ROLE, _msgSender()),
             "ERC1155: sender does not have role"

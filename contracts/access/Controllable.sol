@@ -5,11 +5,12 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
 
 /**
  *
  */
-contract Controllable {
+contract Controllable is Context {
     //
     address internal _controller;
 
@@ -28,7 +29,7 @@ contract Controllable {
     /**
      *
      */
-    function controller() public view returns (address) {
+    function controller() public view virtual returns (address) {
         return _controller;
     }
 
