@@ -13,6 +13,13 @@ import "../../../interfaces/erc1155/IERC1155TokenReceiver.sol";
  */
 contract ERC1155Holder is Context, ERC165, IERC1155TokenReceiver {
     /**
+     *
+     */
+    constructor(address erc1155_) {
+        _setApprovalForAll(erc1155_, _msgSender(), true);
+    }
+
+    /**
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId)
@@ -51,42 +58,6 @@ contract ERC1155Holder is Context, ERC165, IERC1155TokenReceiver {
         bytes memory
     ) public virtual override returns (bytes4) {
         return this.onERC1155BatchReceived.selector;
-    }
-
-    /**
-     * @dev See {IERC1155-safeTransferFrom}.
-     */
-    function _safeTransferFrom(
-        address erc1155,
-        address from,
-        address to,
-        uint256 id,
-        uint256 value,
-        bytes calldata data
-    ) internal virtual {
-        require(
-            IERC165(erc1155).supportsInterface(type(IERC1155).interfaceId),
-            "ERC1155Holder: contract does not support IERC1155 interface"
-        );
-        IERC1155(erc1155).safeTransferFrom(from, to, id, value, data);
-    }
-
-    /**
-     * @dev See {IERC1155-safeBatchTransferFrom}.
-     */
-    function _safeBatchTransferFrom(
-        address erc1155,
-        address from,
-        address to,
-        uint256[] calldata ids,
-        uint256[] calldata values,
-        bytes calldata data
-    ) internal virtual {
-        require(
-            IERC165(erc1155).supportsInterface(type(IERC1155).interfaceId),
-            "ERC1155Holder: contract does not support IERC1155 interface"
-        );
-        IERC1155(erc1155).safeBatchTransferFrom(from, to, ids, values, data);
     }
 
     /**

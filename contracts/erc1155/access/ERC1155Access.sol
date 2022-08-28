@@ -8,11 +8,19 @@ import "../../access/roles/BurnRole.sol";
 import "../../access/roles/MintRole.sol";
 import "../../access/roles/PauseRole.sol";
 import "../../access/roles/EditRole.sol";
+import "../../access/roles/HoldRole.sol";
 
 /**
  *
  */
-contract ERC1155Access is Accessible, BurnRole, MintRole, PauseRole, EditRole {
+contract ERC1155Access is
+    Accessible,
+    BurnRole,
+    MintRole,
+    PauseRole,
+    EditRole,
+    HoldRole
+{
     /**
      * @dev Grants roles to the account that
      * deploys the contract.
@@ -22,5 +30,6 @@ contract ERC1155Access is Accessible, BurnRole, MintRole, PauseRole, EditRole {
         _grantRole(MINTER_ROLE, _msgSender());
         _grantRole(PAUSER_ROLE, _msgSender());
         _grantRole(EDITOR_ROLE, _msgSender());
+        _grantRole(HOLDER_ROLE, _msgSender());
     }
 }
