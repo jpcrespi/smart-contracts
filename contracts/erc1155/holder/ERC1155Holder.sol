@@ -13,13 +13,6 @@ import "../../../interfaces/erc1155/IERC1155TokenReceiver.sol";
  */
 contract ERC1155Holder is Context, ERC165, IERC1155TokenReceiver {
     /**
-     *
-     */
-    constructor(address erc1155_) {
-        _setApprovalForAll(erc1155_, _msgSender(), true);
-    }
-
-    /**
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId)

@@ -15,7 +15,7 @@ abstract contract ERC1155HolderAccess is Controllable, HoldRole, ERC1155Holder {
     /**
      * @dev See {IERC1155-setApprovalForAll}.
      */
-    function setApprovalForAll(address erc1155) public virtual {
+    function setERC1155Access(address erc1155) public virtual {
         require(
             IAccessControl(_controller).hasRole(HOLDER_ROLE, _msgSender()),
             "ERC1155: sender does not have role"
